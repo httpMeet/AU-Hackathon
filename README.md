@@ -82,4 +82,4 @@ This project has been converted from TypeScript to JavaScript while maintaining 
 
 ## License
 
-[MIT](LICENSE)
+[MEET]()
