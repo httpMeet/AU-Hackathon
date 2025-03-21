@@ -160,7 +160,7 @@ const Index = () => {
             </div>
             
             <div className="mt-4 md:mt-0 text-sm text-muted-foreground">
-              © 2023 BudgetWise. All rights reserved.
+              © 2025 BudgetWise. All rights reserved.
             </div>
             
             <div className="mt-4 md:mt-0 flex space-x-4">
