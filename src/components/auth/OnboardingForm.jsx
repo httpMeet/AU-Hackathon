@@ -9,8 +9,7 @@ import {
   HelpCircle, 
   IdCard, 
   Info, 
-  Map, 
-  Phone
+  Map
 } from 'lucide-react';
 import {
   Select,
@@ -24,7 +23,6 @@ import { Checkbox } from "@/components/ui/checkbox";
 const OnboardingForm = () => {
   const [taxId, setTaxId] = useState('');
   const [taxIdType, setTaxIdType] = useState('pan');
-  const [phone, setPhone] = useState('');
   const [address, setAddress] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [agreeTerms, setAgreeTerms] = useState(false);
@@ -42,7 +40,7 @@ const OnboardingForm = () => {
     
     try {
       // This is a mock onboarding - in a real app, you would connect to a backend
-      if (taxId && phone && address) {
+      if (taxId && address) {
         // Simulate API call delay
         await new Promise(resolve => setTimeout(resolve, 1000));
         
@@ -50,7 +48,6 @@ const OnboardingForm = () => {
         localStorage.setItem('hasCompletedOnboarding', 'true');
         localStorage.setItem('user_taxId', taxId);
         localStorage.setItem('user_taxIdType', taxIdType);
-        localStorage.setItem('user_phone', phone);
         localStorage.setItem('user_address', address);
         
         toast.success('Profile setup completed');
@@ -159,22 +156,6 @@ const OnboardingForm = () => {
                   : 'Please enter a valid ID'}
               </p>
             )}
-          </div>
-          
-          <div className="space-y-2">
-            <Label htmlFor="phone">Phone Number</Label>
-            <div className="relative">
-              <Phone className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-              <Input
-                id="phone"
-                type="tel"
-                placeholder="+1 (555) 123-4567"
-                value={phone}
-                onChange={(e) => setPhone(e.target.value)}
-                className="pl-10"
-                required
-              />
-            </div>
           </div>
           
           <div className="space-y-2">

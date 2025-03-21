@@ -1,33 +1,41 @@
-
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import SignupForm from '@/components/auth/SignupForm';
-import { ArrowLeft } from 'lucide-react';
+import OnboardingForm from '@/components/auth/OnboardingForm';
+import { toast } from 'sonner';
 
-const Signup = () => {
+const Onboarding = () => {
   const navigate = useNavigate();
+  
+  useEffect(() => {
+    // Check if user is logged in
+    const isLoggedIn = localStorage.getItem('isLoggedIn');
+    const hasCompletedOnboarding = localStorage.getItem('hasCompletedOnboarding');
+    
+    if (!isLoggedIn) {
+      toast.error('Please log in first');
+      navigate('/login');
+      return;
+    }
+    
+    if (hasCompletedOnboarding === 'true') {
+      toast.info('You have already completed onboarding');
+      navigate('/dashboard');
+    }
+  }, [navigate]);
   
   return (
     <div className="min-h-screen bg-background flex flex-col">
       <div className="flex-1 flex flex-col justify-center items-center p-4 sm:p-8">
         <div className="w-full max-w-md">
-          <button 
-            onClick={() => navigate('/')}
-            className="mb-8 inline-flex items-center text-sm font-medium text-muted-foreground hover:text-primary transition-colors"
-          >
-            <ArrowLeft className="mr-2 h-4 w-4" />
-            Back to home
-          </button>
-          
           <div className="space-y-2 text-center mb-8">
             <div className="mx-auto h-12 w-12 flex items-center justify-center rounded-lg bg-primary overflow-hidden mb-2">
               <span className="text-white font-semibold text-xl">B</span>
             </div>
-            <h1 className="text-2xl font-bold">Create an account</h1>
-            <p className="text-muted-foreground">Sign up to get started with BudgetWise</p>
+            <h1 className="text-2xl font-bold">Almost there!</h1>
+            <p className="text-muted-foreground">Complete your profile to access the dashboard</p>
           </div>
           
-          <SignupForm />
+          <OnboardingForm />
         </div>
       </div>
       
@@ -44,4 +52,4 @@ const Signup = () => {
   );
 };
 
-export default Signup;
+export default Onboarding; 

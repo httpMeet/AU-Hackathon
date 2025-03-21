@@ -4,11 +4,12 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { toast } from 'sonner';
-import { Eye, EyeOff, Lock, Mail, User } from 'lucide-react';
+import { Eye, EyeOff, Lock, Mail, User, Phone } from 'lucide-react';
 
 const SignupForm = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
+  const [phone, setPhone] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
@@ -27,7 +28,7 @@ const SignupForm = () => {
     
     try {
       // This is a mock registration - in a real app, you would connect to a backend
-      if (name && email && password) {
+      if (name && email && phone && password) {
         // Simulate API call delay
         await new Promise(resolve => setTimeout(resolve, 1000));
         
@@ -36,6 +37,7 @@ const SignupForm = () => {
         localStorage.setItem('hasCompletedOnboarding', 'false');
         localStorage.setItem('user_name', name);
         localStorage.setItem('user_email', email);
+        localStorage.setItem('user_phone', phone);
         
         toast.success('Account created successfully');
         navigate('/onboarding');
@@ -79,6 +81,22 @@ const SignupForm = () => {
               placeholder="name@example.com"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
+              className="pl-10"
+              required
+            />
+          </div>
+        </div>
+        
+        <div className="space-y-2">
+          <Label htmlFor="phone">Phone Number</Label>
+          <div className="relative">
+            <Phone className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+            <Input
+              id="phone"
+              type="tel"
+              placeholder="+1 (555) 123-4567"
+              value={phone}
+              onChange={(e) => setPhone(e.target.value)}
               className="pl-10"
               required
             />
