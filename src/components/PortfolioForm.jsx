@@ -241,7 +241,7 @@ const PortfolioForm = () => {
           </div>
         )}
 
-        <Button type="submit" className="w-full bg-green-500 hover:bg-green-600 text-white shadow-neomorph">
+        <Button type="submit" onClick={handleSubmit} className="w-full bg-green-500 hover:bg-green-600 text-white shadow-neomorph">
           Submit Portfolio & Get Advice
         </Button>
       </form>

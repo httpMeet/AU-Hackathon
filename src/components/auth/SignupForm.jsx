@@ -32,15 +32,9 @@ const SignupForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     
-<<<<<<< HEAD
-    if (!name || !email || !phone || !dob || !password) {
-        toast.error('Please fill in all fields');
-        return;
-=======
     if (!name || !email || !phone || !dob || !password || !panCard || !address) {
       toast.error('Please fill in all fields');
       return;
->>>>>>> 51d4aed4e1ff7c1d2a78d291f6c7d37e6243546b
     }
 
     if (!validatePanCard(panCard)) {
@@ -64,13 +58,9 @@ const SignupForm = () => {
         name,
         email,
         phone,
-<<<<<<< HEAD
-        dob,  // Include the dob field
-=======
         dob,
         panCard,
         address,
->>>>>>> 51d4aed4e1ff7c1d2a78d291f6c7d37e6243546b
         password
       });
       
