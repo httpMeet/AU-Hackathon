@@ -89,7 +89,7 @@ const Index = () => {
                 <div className="absolute -top-4 -right-4 -left-4 -bottom-4 bg-gradient-to-r from-primary/30 to-primary/10 rounded-xl blur-xl"></div>
                 <div className="relative bg-card rounded-xl shadow-xl overflow-hidden border border-border">
                   <img 
-                    src="https://images.klipfolio.com/website/public/5eaa172d-9c85-4a66-9a34-8dd8e3abb8d3/financial-dashboard-example.png" 
+                    src="https://i.ytimg.com/vi/StGOX_gZeLU/maxresdefault.jpg" 
                     alt="Financial Dashboard Preview" 
                     className="w-full h-auto"
                     loading="lazy"
