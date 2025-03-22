@@ -75,7 +75,7 @@ const Navbar = () => {
                 Sign In
               </Button>
               <Button onClick={() => navigate('/signup')}>
-                Get Started
+                Sign Up
               </Button>
             </>
           ) : (
