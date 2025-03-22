@@ -15,7 +15,6 @@ const Dashboard = () => {
   useEffect(() => {
     // Check if user is logged in and has completed onboarding
     const isLoggedIn = localStorage.getItem('isLoggedIn');
-    const hasCompletedOnboarding = localStorage.getItem('hasCompletedOnboarding');
     
     if (!isLoggedIn) {
       toast.error('Please log in first');

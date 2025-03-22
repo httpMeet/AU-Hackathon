@@ -33,15 +33,11 @@ const Navbar = () => {
   }, [scrolled]);
 
   const handleLogout = () => {
-    const onboardingStatus = localStorage.getItem('hasCompletedOnboarding');
 
     // Clear all local storage
     localStorage.clear();
   
-    // Restore the `hasCompletedOnboarding` value
-    if (onboardingStatus) {
-      localStorage.setItem('hasCompletedOnboarding', onboardingStatus);
-    }
+    
     toast.success('Logged out successfully');
     navigate('/');
   };
