@@ -1,0 +1,23 @@
+{
+  "income_distribution": [
+    { "category": "Salary", "amount": 850000 },
+    { "category": "Business", "amount": 250000 },
+    { "category": "Investments", "amount": 150000 },
+    { "category": "Rental", "amount": 120000 },
+    { "category": "Other", "amount": 80000 }
+  ],
+  "monthly_expenses": [
+    { "month": "Jan", "amount": 45000 },
+    { "month": "Feb", "amount": 42000 },
+    { "month": "Mar", "amount": 48000 },
+    { "month": "Apr", "amount": 51000 },
+    { "month": "May", "amount": 46000 },
+    { "month": "Jun", "amount": 49000 },
+    { "month": "Jul", "amount": 52000 },
+    { "month": "Aug", "amount": 47000 },
+    { "month": "Sep", "amount": 45000 },
+    { "month": "Oct", "amount": 48000 },
+    { "month": "Nov", "amount": 53000 },
+    { "month": "Dec", "amount": 55000 }
+  ]
+} 

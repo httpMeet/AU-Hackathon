@@ -1,0 +1,604 @@
+{
+    "users": [
+      {
+        "user_id": "U001",
+        "name": "Amit Sharma",
+        "age": 35,
+        "location": "Mumbai",
+        "bank_accounts": {
+          "savings_account": {
+            "balance": 150000,
+            "interest_rate": 3.5,
+            "bank": "HDFC Bank"
+          },
+          "current_account": {
+            "balance": 50000,
+            "bank": "ICICI Bank"
+          },
+          "fixed_deposits": [
+            {
+              "amount": 200000,
+              "interest_rate": 6.5,
+              "tenure_years": 5,
+              "bank": "SBI"
+            }
+          ],
+          "recurring_deposits": {
+            "monthly_deposit": 5000,
+            "interest_rate": 6.0,
+            "tenure_years": 3,
+            "bank": "Axis Bank"
+          },
+          "ppf": {
+            "balance": 300000,
+            "annual_contribution": 50000,
+            "interest_rate": 7.1
+          },
+          "salary_account": {
+            "balance": 75000,
+            "bank": "HDFC Bank"
+          }
+        },
+        "demat_account": {
+          "stocks": [
+            {
+              "company": "Reliance Industries",
+              "shares": 50,
+              "value": 125000
+            }
+          ],
+          "mutual_funds": [
+            {
+              "fund_name": "SBI Bluechip Fund",
+              "units": 200,
+              "value": 80000
+            }
+          ],
+          "sips": {
+            "monthly_investment": 10000,
+            "fund_name": "HDFC Mid-Cap Opportunities",
+            "duration_years": 5
+          },
+          "bonds": [
+            {
+              "type": "G-Secs",
+              "amount": 100000,
+              "interest_rate": 6.8
+            }
+          ]
+        },
+        "credit_debit_cards": {
+          "credit_cards": [
+            {
+              "bank": "HDFC Bank",
+              "limit": 300000,
+              "outstanding": 45000
+            }
+          ],
+          "debit_cards": [
+            {
+              "bank": "ICICI Bank",
+              "linked_account": "savings"
+            }
+          ]
+        },
+        "assets": {
+          "movable_assets": {
+            "cars": [
+              {
+                "model": "Hyundai Creta",
+                "value": 1500000
+              }
+            ],
+            "gadgets": {
+              "total_value": 50000
+            }
+          },
+          "immovable_assets": {
+            "real_estate": [
+              {
+                "type": "Apartment",
+                "location": "Mumbai",
+                "value": 12000000
+              }
+            ]
+          },
+          "jewelry_precious_metals": {
+            "gold_grams": 200,
+            "value": 1000000
+          }
+        },
+        "cash_on_hand_liquidity": {
+          "cash": 20000,
+          "short_term_liquid_funds": {
+            "amount": 50000,
+            "type": "Liquid Mutual Fund"
+          },
+          "emergency_fund": 100000
+        },
+        "debt_liabilities": {
+          "home_loans": [
+            {
+              "amount": 5000000,
+              "interest_rate": 8.5,
+              "tenure_years": 15,
+              "bank": "SBI"
+            }
+          ],
+          "credit_card_debt": 45000
+        },
+        "insurance": {
+          "life_insurance": {
+            "type": "Term Plan",
+            "sum_assured": 10000000,
+            "premium": 15000
+          },
+          "health_insurance": {
+            "coverage": 500000,
+            "premium": 12000
+          }
+        },
+        "investments_in_businesses": {
+          "equity_stake_in_startups": [
+            {
+              "startup_name": "TechBit",
+              "stake_percentage": 5,
+              "value": 200000
+            }
+          ]
+        },
+        "retirement_accounts": {
+          "epf": {
+            "balance": 400000,
+            "contribution": 12000
+          },
+          "nps": {
+            "balance": 150000,
+            "annual_contribution": 50000
+          }
+        },
+        "miscellaneous": {
+          "rental_income": {
+            "monthly_income": 25000,
+            "property": "Apartment in Pune"
+          }
+        }
+      },
+      {
+        "user_id": "U002",
+        "name": "Priya Patel",
+        "age": 28,
+        "location": "Ahmedabad",
+        "bank_accounts": {
+          "savings_account": {
+            "balance": 80000,
+            "interest_rate": 3.0,
+            "bank": "Axis Bank"
+          },
+          "nri_nro_accounts": {
+            "balance": 200000,
+            "bank": "SBI"
+          }
+        },
+        "demat_account": {
+          "gold_bonds": [
+            {
+              "amount": 50000,
+              "interest_rate": 2.5
+            }
+          ],
+          "etfs": [
+            {
+              "type": "Nifty50 ETF",
+              "units": 100,
+              "value": 25000
+            }
+          ]
+        },
+        "credit_debit_cards": {
+          "debit_cards": [
+            {
+              "bank": "Axis Bank",
+              "linked_account": "savings"
+            }
+          ]
+        },
+        "assets": {
+          "movable_assets": {
+            "bikes": [
+              {
+                "model": "Royal Enfield Classic 350",
+                "value": 200000
+              }
+            ]
+          }
+        },
+        "cash_on_hand_liquidity": {
+          "cash": 10000
+        }
+      },{
+      "user_id": "U003",
+        "name": "Rohan Mehra",
+        "age": 42,
+        "location": "Delhi",
+        "bank_accounts": {
+          "savings_account": {
+            "balance": 250000,
+            "interest_rate": 3.2,
+            "bank": "Kotak Mahindra"
+          },
+          "fixed_deposits": [
+            {
+              "amount": 300000,
+              "interest_rate": 6.8,
+              "tenure_years": 7,
+              "bank": "PNB"
+            }
+          ],
+          "ppf": {
+            "balance": 500000,
+            "annual_contribution": 75000,
+            "interest_rate": 7.1
+          }
+        },
+        "demat_account": {
+          "stocks": [
+            {
+              "company": "Tata Motors",
+              "shares": 80,
+              "value": 48000
+            }
+          ],
+          "mutual_funds": [
+            {
+              "fund_name": "Axis Long Term Equity",
+              "units": 150,
+              "value": 90000
+            }
+          ]
+        },
+        "credit_debit_cards": {
+          "credit_cards": [
+            {
+              "bank": "SBI",
+              "limit": 500000,
+              "outstanding": 120000
+            }
+          ]
+        },
+        "assets": {
+          "immovable_assets": {
+            "real_estate": [
+              {
+                "type": "House",
+                "location": "Delhi",
+                "value": 18000000
+              }
+            ]
+          }
+        },
+        "debt_liabilities": {
+          "home_loans": [
+            {
+              "amount": 8000000,
+              "interest_rate": 8.2,
+              "tenure_years": 20,
+              "bank": "HDFC Bank"
+            }
+          ]
+        }
+      },
+      {
+        "user_id": "U004",
+        "name": "Sneha Kapoor",
+        "age": 29,
+        "location": "Bangalore",
+        "bank_accounts": {
+          "savings_account": {
+            "balance": 120000,
+            "interest_rate": 3.5,
+            "bank": "ICICI Bank"
+          },
+          "salary_account": {
+            "balance": 45000,
+            "bank": "HDFC Bank"
+          }
+        },
+        "demat_account": {
+          "sips": {
+            "monthly_investment": 5000,
+            "fund_name": "Mirae Asset Large Cap",
+            "duration_years": 10
+          }
+        },
+        "credit_debit_cards": {
+          "debit_cards": [
+            {
+              "bank": "ICICI Bank",
+              "linked_account": "savings"
+            }
+          ]
+        },
+        "assets": {
+          "movable_assets": {
+            "gadgets": {
+              "total_value": 30000
+            }
+          }
+        }
+      },
+      {
+        "user_id": "U005",
+        "name": "Vikram Singh",
+        "age": 50,
+        "location": "Chennai",
+        "bank_accounts": {
+          "current_account": {
+            "balance": 300000,
+            "bank": "SBI"
+          },
+          "fixed_deposits": [
+            {
+              "amount": 500000,
+              "interest_rate": 6.5,
+              "tenure_years": 5,
+              "bank": "Canara Bank"
+            }
+          ]
+        },
+        "demat_account": {
+          "bonds": [
+            {
+              "type": "Corporate Bonds",
+              "amount": 200000,
+              "interest_rate": 7.5
+            }
+          ]
+        },
+        "assets": {
+          "immovable_assets": {
+            "real_estate": [
+              {
+                "type": "Commercial Property",
+                "location": "Chennai",
+                "value": 25000000
+              }
+            ]
+          },
+          "business_inventory": {
+            "description": "Electronics",
+            "value": 1000000
+          }
+        },
+        "insurance": {
+          "business_insurance": {
+            "coverage": 5000000,
+            "premium": 50000
+          }
+        }
+      },
+      {
+        "user_id": "U006",
+        "name": "Anjali Rao",
+        "age": 33,
+        "location": "Hyderabad",
+        "bank_accounts": {
+          "savings_account": {
+            "balance": 90000,
+            "interest_rate": 3.0,
+            "bank": "Axis Bank"
+          },
+          "recurring_deposits": {
+            "monthly_deposit": 3000,
+            "interest_rate": 6.2,
+            "tenure_years": 2,
+            "bank": "HDFC Bank"
+          }
+        },
+        "demat_account": {
+          "gold_bonds": [
+            {
+              "amount": 75000,
+              "interest_rate": 2.5
+            }
+          ]
+        },
+        "credit_debit_cards": {
+          "prepaid_cards": [
+            {
+              "balance": 10000,
+              "issuer": "Paytm"
+            }
+          ]
+        }
+      },
+      {
+        "user_id": "U007",
+        "name": "Kunal Deshmukh",
+        "age": 38,
+        "location": "Pune",
+        "bank_accounts": {
+          "savings_account": {
+            "balance": 200000,
+            "interest_rate": 3.5,
+            "bank": "HDFC Bank"
+          }
+        },
+        "demat_account": {
+          "stocks": [
+            {
+              "company": "Infosys",
+              "shares": 30,
+              "value": 54000
+            }
+          ]
+        },
+        "assets": {
+          "movable_assets": {
+            "cars": [
+              {
+                "model": "Maruti Swift",
+                "value": 700000
+              }
+            ]
+          }
+        },
+        "debt_liabilities": {
+          "car_loans": [
+            {
+              "amount": 500000,
+              "interest_rate": 9.0,
+              "tenure_years": 5,
+              "bank": "SBI"
+            }
+          ]
+        }
+      },
+      {
+        "user_id": "U008",
+        "name": "Meera Nair",
+        "age": 45,
+        "location": "Kochi",
+        "bank_accounts": {
+          "nri_nro_accounts": {
+            "balance": 400000,
+            "bank": "Federal Bank"
+          },
+          "ppf": {
+            "balance": 600000,
+            "annual_contribution": 100000,
+            "interest_rate": 7.1
+          }
+        },
+        "demat_account": {
+          "nscs": {
+            "amount": 100000,
+            "interest_rate": 6.8,
+            "tenure_years": 5
+          }
+        },
+        "insurance": {
+          "life_insurance": {
+            "type": "Endowment Plan",
+            "sum_assured": 2000000,
+            "premium": 25000
+          }
+        }
+      },
+      {
+        "user_id": "U009",
+        "name": "Suresh Iyer",
+        "age": 31,
+        "location": "Mumbai",
+        "bank_accounts": {
+          "salary_account": {
+            "balance": 60000,
+            "bank": "ICICI Bank"
+          }
+        },
+        "demat_account": {
+          "cryptocurrencies": [
+            {
+              "type": "Bitcoin",
+              "units": 0.05,
+              "value": 250000
+            }
+          ]
+        },
+        "credit_debit_cards": {
+          "virtual_credit_cards": [
+            {
+              "bank": "HDFC Bank",
+              "limit": 50000
+            }
+          ]
+        }
+      },
+      {
+        "user_id": "U010",
+        "name": "Divya Gupta",
+        "age": 27,
+        "location": "Kolkata",
+        "bank_accounts": {
+          "savings_account": {
+            "balance": 70000,
+            "interest_rate": 3.2,
+            "bank": "SBI"
+          }
+        },
+        "demat_account": {
+          "sips": {
+            "monthly_investment": 3000,
+            "fund_name": "ICICI Prudential Bluechip",
+            "duration_years": 7
+          }
+        },
+        "assets": {
+          "jewelry_precious_metals": {
+            "gold_grams": 50,
+            "value": 250000
+          }
+        }
+      },
+      {
+        "user_id": "U011",
+        "name": "Arjun Reddy",
+        "age": 39,
+        "location": "Hyderabad",
+        "bank_accounts": {
+          "current_account": {
+            "balance": 150000,
+            "bank": "HDFC Bank"
+          }
+        },
+        "demat_account": {
+          "commodities": [
+            {
+              "type": "Gold",
+              "units": 100,
+              "value": 500000
+            }
+          ]
+        },
+        "investments_in_businesses": {
+          "partnerships": [
+            {
+              "business_name": "Reddy Traders",
+              "stake_percentage": 50,
+              "value": 2000000
+            }
+          ]
+        }
+      },
+      {
+        "user_id": "U012",
+        "name": "Pooja Verma",
+        "age": 34,
+        "location": "Jaipur",
+        "bank_accounts": {
+          "savings_account": {
+            "balance": 180000,
+            "interest_rate": 3.4,
+            "bank": "Axis Bank"
+          },
+          "post_office_savings": {
+            "balance": 50000,
+            "interest_rate": 4.0
+          }
+        },
+        "demat_account": {
+          "kvp": {
+            "amount": 100000,
+            "doubling_period_years": 9
+          }
+        },
+        "insurance": {
+          "health_insurance": {
+            "coverage": 300000,
+            "premium": 8000
+          }
+        }
+      }
+      
+    ]
+  }
