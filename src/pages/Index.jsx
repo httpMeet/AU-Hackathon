@@ -10,6 +10,7 @@ import BillManagement from '../components/BillManagement';
 import CreditScore from '../components/CreditScore';
 import AIChatbot from '../components/AIChatbot';
 import Logo from '../assets/logo.png';
+import Logo2 from '../assets/logo2.jpg';
 
 const Index = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -163,13 +164,17 @@ const Index = () => {
           <div className="flex flex-col md:flex-row justify-between items-center">
             <div className="flex items-center">
               <div className="h-8 w-8 rounded-lg bg-primary mr-2 flex items-center justify-center">
-                <span className="text-white font-semibold">B</span>
+              <img 
+                  src={Logo2} 
+                  alt="BudgetWise Logo" 
+                  className="h-16 w-auto"
+                />
               </div>
-              <span className="text-sm font-medium">BudgetWise</span>
+              
             </div>
             
             <div className="mt-4 md:mt-0 text-sm text-muted-foreground">
-              © 2025 BudgetWise. All rights reserved.
+              © 2025 FinFlow. All rights reserved.
             </div>
             
             <div className="mt-4 md:mt-0 flex space-x-4">
