@@ -2,6 +2,11 @@ import React, { useState } from 'react';
 import { ArrowUpRight, ChevronRight, CreditCard, DollarSign, Wallet, Briefcase, PiggyBank, BarChart4, Receipt, Building, BadgePercent } from 'lucide-react';
 import AnimatedCard from './AnimatedCard';
 import StatusBadge from './StatusBadge';
+import PortfolioForm from './PortfolioForm';
+import AdviceDisplay from './AdviceDisplay';
+import { Button } from './ui/button';
+import { getInvestmentAdvice } from '@/api/gemini';
+import { toast } from 'sonner';
 
 // Expanded accounts data with various financial instruments
 const accounts = [
@@ -141,6 +146,9 @@ const accounts = [
 
 function AccountOverview() {
   const [activeTab, setActiveTab] = useState('all');
+  const [showPortfolioForm, setShowPortfolioForm] = useState(false);
+  const [selectedAccountId, setSelectedAccountId] = useState(null);
+  const [investmentAdvice, setInvestmentAdvice] = useState(null);
   
   const totalBalance = accounts
     .filter(account => account.category !== 'cards' || account.type === 'debit')
@@ -193,6 +201,18 @@ function AccountOverview() {
       case 'investments': return 'Investments';
       case 'retirement': return 'Retirement';
       default: return category.charAt(0).toUpperCase() + category.slice(1);
+    }
+  };
+
+  const handlePortfolioSubmit = async (data) => {
+    try {
+      const advice = await getInvestmentAdvice(data.portfolio, data.riskProfile);
+      setInvestmentAdvice(advice);
+      setShowPortfolioForm(false);
+      toast.success('Investment advice generated successfully!');
+    } catch (error) {
+      console.error('Error getting investment advice:', error);
+      toast.error('Failed to generate investment advice. Please try again.');
     }
   };
 
@@ -326,25 +346,44 @@ function AccountOverview() {
                   </div>
                 </div>
                 
-                <div className="flex flex-col items-end">
-                  <div className="font-semibold">
-                    {account.type === 'credit' ? '-' : ''}${account.balance?.toLocaleString()}
+                <div className="flex items-center space-x-4">
+                  <div className="flex flex-col items-end">
+                    <div className="font-semibold">
+                      {account.type === 'credit' ? '-' : ''}${account.balance?.toLocaleString()}
+                    </div>
+                    <div className="flex items-center mt-1">
+                      {account.interestRate && (
+                        <span className="text-xs text-muted-foreground mr-2">
+                          {account.interestRate} {account.type === 'fd' || account.type === 'pps' ? 'p.a.' : ''}
+                        </span>
+                      )}
+                      {account.type === 'stocks' && (
+                        <span className="text-xs text-green-500">{account.returns}</span>
+                      )}
+                    </div>
                   </div>
-                  <div className="flex items-center mt-1">
-                    {account.interestRate && (
-                      <span className="text-xs text-muted-foreground mr-2">
-                        {account.interestRate} {account.type === 'fd' || account.type === 'pps' ? 'p.a.' : ''}
-                      </span>
-                    )}
-                    <StatusBadge 
-                      status={account.status === 'active' ? 'success' : 'warning'} 
-                      label={account.status === 'active' ? 'Active' : 'Inactive'} 
-                    />
-                  </div>
+                  
+                  {account.type === 'stocks' && (
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={() => {
+                        setSelectedAccountId(account.id);
+                        setShowPortfolioForm(true);
+                      }}
+                    >
+                      Manage Portfolio
+                    </Button>
+                  )}
+                  
+                  <StatusBadge 
+                    status={account.status === 'active' ? 'success' : 'warning'} 
+                    label={account.status === 'active' ? 'Active' : 'Inactive'} 
+                  />
                 </div>
               </div>
               
-              {/* Additional information based on account type */}
+              {/* Additional account information */}
               {account.type === 'fd' && (
                 <div className="mt-2 pl-14 text-xs text-muted-foreground">
                   <div className="flex space-x-4">
@@ -366,7 +405,6 @@ function AccountOverview() {
               {account.type === 'stocks' && (
                 <div className="mt-2 pl-14 text-xs text-muted-foreground">
                   <div className="flex space-x-4">
-                    <span>Returns: <span className="text-green-500">{account.returns}</span></span>
                     <span>Holdings: {account.holdings} stocks</span>
                   </div>
                 </div>
@@ -394,6 +432,28 @@ function AccountOverview() {
                 <div className="mt-2 pl-14 text-xs text-muted-foreground">
                   <span>Co-owner: {account.coOwner}</span>
                 </div>
+              )}
+              
+              {/* Portfolio Form and Advice Display */}
+              {account.type === 'stocks' && selectedAccountId === account.id && (
+                <>
+                  {showPortfolioForm && (
+                    <div className="mt-4 border-t pt-4">
+                      <PortfolioForm 
+                        onSubmit={handlePortfolioSubmit}
+                        onCancel={() => {
+                          setShowPortfolioForm(false);
+                          setSelectedAccountId(null);
+                        }}
+                      />
+                    </div>
+                  )}
+                  {investmentAdvice && (
+                    <div className="mt-4 border-t pt-4">
+                      <AdviceDisplay advice={investmentAdvice} />
+                    </div>
+                  )}
+                </>
               )}
             </div>
           ))}

@@ -34,7 +34,7 @@ const Signup = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-10">
           <div className="flex justify-center items-center">
             <div className="text-sm text-muted-foreground">
-              © 2023 BudgetWise. All rights reserved.
+              © 2024 BudgetWise. All rights reserved.
             </div>
           </div>
         </div>

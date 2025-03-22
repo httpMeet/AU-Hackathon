@@ -3,6 +3,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import { cn } from '@/lib/utils';
 import { Bell, ChevronDown, LogOut, Menu, Search, Settings, User } from 'lucide-react';
 import { toast } from 'sonner';
+import Logo from '../assets/logo.png';
 
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
@@ -51,19 +52,12 @@ const Navbar = () => {
     >
       <div className="max-w-7xl mx-auto flex items-center justify-between">
         <div className="flex items-center">
-          <div 
-            className="relative h-9 w-9 flex items-center justify-center mr-3 rounded-lg bg-primary overflow-hidden cursor-pointer"
+          <img 
+            src={Logo} 
+            alt="BudgetWise Logo" 
+            className="h-16 w-auto cursor-pointer"
             onClick={() => navigate('/')}
-          >
-            <div className="absolute inset-0 bg-primary opacity-80"></div>
-            <span className="relative text-white font-semibold text-xl">B</span>
-          </div>
-          <h1 
-            className="text-xl font-semibold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-primary to-primary/60 cursor-pointer"
-            onClick={() => navigate('/')}
-          >
-            BudgetWise
-          </h1>
+          />
         </div>
 
         {isLoggedIn && (

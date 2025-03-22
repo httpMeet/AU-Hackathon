@@ -1,10 +1,15 @@
 import { GoogleGenerativeAI } from '@google/generative-ai';
-import type { Portfolio, RiskProfile, InvestmentAdvice } from '../types';
 
-const genAI = new GoogleGenerativeAI('AIzaSyBYSw0fuXaZQc06gSUJKHegAwNCl7zI9CY');
+const genAI = new GoogleGenerativeAI(import.meta.env.VITE_GEMINI_API_KEY);
 
-export async function getInvestmentAdvice(portfolio: Portfolio, riskProfile: RiskProfile): Promise<InvestmentAdvice> {
-  const model = genAI.getGenerativeModel({ model: 'gemini-2.0-flash' }); // Changed to gemini-pro for better JSON handling
+/**
+ * Get investment advice based on portfolio and risk profile
+ * @param {import('../types.jsx').Portfolio} portfolio
+ * @param {import('../types.jsx').RiskProfile} riskProfile
+ * @returns {Promise<import('../types.jsx').InvestmentAdvice>}
+ */
+export async function getInvestmentAdvice(portfolio, riskProfile) {
+  const model = genAI.getGenerativeModel({ model: 'gemini-2.0-flash' });
 
   const prompt = `
     You are an expert AI investment advisor. Analyze the following portfolio and risk profile, then provide concise, actionable advice for portfolio optimization. Your response must be a valid JSON object (no markdown formatting, no backticks) with the following structure:
@@ -55,4 +60,4 @@ export async function getInvestmentAdvice(portfolio: Portfolio, riskProfile: Ris
     console.error('Error generating investment advice:', error);
     throw new Error('Failed to generate investment advice');
   }
-}
+} 

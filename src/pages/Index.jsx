@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Navbar from '@/components/Navbar';
-import { Button } from '@/components/ui/button';
+import Navbar from '../components/Navbar';
+import { Button } from '../components/ui/button';
 import { ArrowRight, ChevronRight, Lock, ShieldCheck, Wallet } from 'lucide-react';
-import AccountOverview from '@/components/AccountOverview';
-import TransactionHistory from '@/components/TransactionHistory';
-import ExpenseChart from '@/components/ExpenseChart';
-import BillManagement from '@/components/BillManagement';
-import CreditScore from '@/components/CreditScore';
-import AIChatbot from '@/components/AIChatbot';
+import AccountOverview from '../components/AccountOverview';
+import TransactionHistory from '../components/TransactionHistory';
+import ExpenseChart from '../components/ExpenseChart';
+import BillManagement from '../components/BillManagement';
+import CreditScore from '../components/CreditScore';
+import AIChatbot from '../components/AIChatbot';
+import Logo from '../assets/logo.png';
 
 const Index = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -51,6 +52,13 @@ const Index = () => {
         <section className="px-4 sm:px-6 md:px-10 max-w-7xl mx-auto">
           <div className="flex flex-col md:flex-row items-center md:space-x-8 py-12 md:py-24">
             <div className="md:w-1/2 space-y-6 animate-appear opacity-0">
+              <div className="flex items-center justify-center md:justify-start mb-6">
+                <img 
+                  src={Logo} 
+                  alt="BudgetWise Logo" 
+                  className="h-16 w-auto"
+                />
+              </div>
               <h1 className="text-4xl md:text-5xl font-bold leading-tight">
                 Your Complete Financial Dashboard on the Blockchain
               </h1>
