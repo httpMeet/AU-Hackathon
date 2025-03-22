@@ -12,72 +12,43 @@ import {
   DialogDescription,
 } from "@/components/ui/dialog";
 import { toast } from 'sonner';
-import { getStockAnalysis } from '@/utils/gemini';
+import { analyzeStock } from '@/api/gemini1';
 
 const stocksList = [
   {
     symbol: 'AAPL',
     name: 'Apple Inc.',
     currentPrice: 175.34,
-    prediction: 'BUY',
     change: '+2.5%',
-    reason: 'Strong product pipeline, services growth, and market position'
+    sharesOwned: 100
   },
   {
     symbol: 'MSFT',
     name: 'Microsoft Corporation',
     currentPrice: 415.50,
-    prediction: 'HOLD',
     change: '+0.8%',
-    reason: 'Fair valuation at current levels, steady growth'
+    sharesOwned: 50
   },
   {
     symbol: 'GOOGL',
     name: 'Alphabet Inc.',
     currentPrice: 147.60,
-    prediction: 'SELL',
     change: '-1.2%',
-    reason: 'Increasing competition in AI space, regulatory concerns'
+    sharesOwned: 75
   },
   {
     symbol: 'AMZN',
     name: 'Amazon.com Inc.',
     currentPrice: 178.25,
-    prediction: 'BUY',
     change: '+3.1%',
-    reason: 'E-commerce dominance, AWS growth, advertising potential'
+    sharesOwned: 60
   },
   {
     symbol: 'NVDA',
     name: 'NVIDIA Corporation',
     currentPrice: 890.15,
-    prediction: 'HOLD',
     change: '+0.5%',
-    reason: 'Strong AI position but high valuation'
-  },
-  {
-    symbol: 'META',
-    name: 'Meta Platforms Inc.',
-    currentPrice: 505.28,
-    prediction: 'BUY',
-    change: '+1.8%',
-    reason: 'Metaverse potential, strong ad revenue, AI integration'
-  },
-  {
-    symbol: 'TSLA',
-    name: 'Tesla Inc.',
-    currentPrice: 175.34,
-    prediction: 'SELL',
-    change: '-2.7%',
-    reason: 'Increasing EV competition, margin pressure'
-  },
-  {
-    symbol: 'JPM',
-    name: 'JPMorgan Chase & Co.',
-    currentPrice: 182.90,
-    prediction: 'BUY',
-    change: '+1.2%',
-    reason: 'Strong financial position, rising interest rates benefit'
+    sharesOwned: 40
   }
 ];
 
@@ -86,7 +57,9 @@ const Insights = () => {
   const [loading, setLoading] = useState(true);
   const [selectedStock, setSelectedStock] = useState(null);
   const [showDialog, setShowDialog] = useState(false);
-  const [analysisResult, setAnalysisResult] = useState('');
+  const [analysisResult, setAnalysisResult] = useState(null);
+  const [stockPredictions, setStockPredictions] = useState({});
+  const [analyzing, setAnalyzing] = useState(false);
 
   useEffect(() => {
     const isLoggedIn = localStorage.getItem('isLoggedIn');
@@ -95,8 +68,40 @@ const Insights = () => {
       navigate('/login');
       return;
     }
-    setLoading(false);
+    loadPredictions();
   }, [navigate]);
+
+  const loadPredictions = async () => {
+    setLoading(true);
+    const predictions = {};
+    let hasError = false;
+    
+    try {
+      // Load predictions one at a time
+      for (const stock of stocksList) {
+        try {
+          const analysis = await analyzeStock(stock.symbol, stock.sharesOwned);
+          predictions[stock.symbol] = analysis.recommendation;
+          // Update predictions as they come in
+          setStockPredictions(prev => ({ ...prev, [stock.symbol]: analysis.recommendation }));
+        } catch (error) {
+          console.error(`Error loading prediction for ${stock.symbol}:`, error);
+          hasError = true;
+          // Set a placeholder for failed predictions
+          predictions[stock.symbol] = 'ANALYZING...';
+        }
+      }
+    } catch (error) {
+      console.error('Error loading predictions:', error);
+      toast.error(error.message || 'Failed to load some predictions');
+      hasError = true;
+    } finally {
+      setLoading(false);
+      if (hasError) {
+        toast.error('Some predictions failed to load. Click the stock to try again.');
+      }
+    }
+  };
 
   const getPredictionStyle = (prediction) => {
     switch (prediction) {
@@ -118,12 +123,19 @@ const Insights = () => {
   const handleStockClick = async (stock) => {
     setSelectedStock(stock);
     setShowDialog(true);
+    setAnalyzing(true);
+
     try {
-      const analysis = await getStockAnalysis(stock.symbol, stock.prediction);
+      const analysis = await analyzeStock(stock.symbol, stock.sharesOwned);
       setAnalysisResult(analysis);
+      // Update the prediction in the list
+      setStockPredictions(prev => ({ ...prev, [stock.symbol]: analysis.recommendation }));
     } catch (error) {
-      console.error('Error fetching analysis:', error);
-      setAnalysisResult(stock.reason);
+      console.error('Error analyzing stock:', error);
+      toast.error(error.message || 'Failed to analyze stock');
+      setAnalysisResult(null);
+    } finally {
+      setAnalyzing(false);
     }
   };
 
@@ -133,7 +145,7 @@ const Insights = () => {
         <Navbar />
         <main className="container mx-auto pt-24 pb-16 px-4">
           <div className="flex items-center justify-center h-64">
-            <div className="text-lg">Loading insights...</div>
+            <div className="text-lg">Loading stock predictions...</div>
           </div>
         </main>
       </div>
@@ -147,8 +159,13 @@ const Insights = () => {
         <div className="mb-8">
           <h1 className="text-3xl font-bold text-gray-900">Stock Predictions</h1>
           <p className="text-gray-600 mt-2">
-            AI-powered stock recommendations with buy, sell, or hold predictions
+            AI-powered stock recommendations with real-time analysis
           </p>
+          {loading && (
+            <p className="text-sm text-gray-600 mt-2">
+              Loading predictions... This may take a moment.
+            </p>
+          )}
         </div>
 
         <div className="grid gap-4">
@@ -166,15 +183,21 @@ const Insights = () => {
                     </span>
                   </div>
                   <p className="text-lg text-gray-600 mt-1">{stock.name}</p>
-                  <p className="text-xl font-semibold text-gray-900 mt-2">
-                    ${stock.currentPrice}
-                  </p>
+                  <div className="mt-2">
+                    <p className="text-xl font-semibold text-gray-900">
+                      ${stock.currentPrice}
+                    </p>
+                    <p className="text-sm text-gray-600">
+                      {stock.sharesOwned} shares owned
+                    </p>
+                  </div>
                 </div>
                 <Button
                   onClick={() => handleStockClick(stock)}
-                  className={`${getPredictionStyle(stock.prediction)} font-bold text-lg px-8 py-6`}
+                  className={`${getPredictionStyle(stockPredictions[stock.symbol])} font-bold text-lg px-8 py-6`}
+                  disabled={analyzing}
                 >
-                  {stock.prediction}
+                  {stockPredictions[stock.symbol] || 'ANALYZING...'}
                 </Button>
               </div>
             </Card>
@@ -192,18 +215,62 @@ const Insights = () => {
                 <span className={`font-medium ${selectedStock?.change && getChangeColor(selectedStock.change)}`}>
                   {selectedStock?.change}
                 </span>
-                <Badge className={getPredictionStyle(selectedStock?.prediction)}>
-                  {selectedStock?.prediction}
-                </Badge>
+                {analysisResult && (
+                  <Badge className={getPredictionStyle(analysisResult.recommendation)}>
+                    {analysisResult.recommendation}
+                  </Badge>
+                )}
               </div>
               <DialogDescription className="mt-4">
-                <div className="mt-4 space-y-4 text-base">
-                  {analysisResult.split('\n').map((line, index) => (
-                    <p key={index} className="text-gray-700">
-                      {line}
-                    </p>
-                  ))}
-                </div>
+                {analyzing ? (
+                  <div className="flex items-center justify-center py-8">
+                    <div className="text-lg text-gray-600">Generating AI analysis...</div>
+                  </div>
+                ) : analysisResult ? (
+                  <div className="space-y-4">
+                    <div>
+                      <h3 className="font-semibold mb-2">Technical Analysis</h3>
+                      <p>Trend: {analysisResult.analysis.technical.trend}</p>
+                      <p>Strength: {(analysisResult.analysis.technical.strength * 100).toFixed(1)}%</p>
+                    </div>
+                    <div>
+                      <h3 className="font-semibold mb-2">Market Sentiment</h3>
+                      <p>Overall: {analysisResult.analysis.sentiment.overall}</p>
+                      <p>Score: {analysisResult.analysis.sentiment.score.toFixed(2)}</p>
+                    </div>
+                    <div>
+                      <h3 className="font-semibold mb-2">Risk Assessment</h3>
+                      <p>Level: {analysisResult.analysis.risk.level}</p>
+                      <p>Factors: {analysisResult.analysis.risk.factors.join(', ')}</p>
+                    </div>
+                    <div>
+                      <h3 className="font-semibold mb-2">Portfolio Impact</h3>
+                      <p>Current Value: ${analysisResult.portfolio_impact.current_value.toFixed(2)}</p>
+                      <p>Potential Change: ${analysisResult.portfolio_impact.potential_change.toFixed(2)}</p>
+                    </div>
+                    <div>
+                      <h3 className="font-semibold mb-2">Recent News</h3>
+                      {analysisResult.news.map((item, index) => (
+                        <div key={index} className="mb-3">
+                          <p className="font-medium">{item.title}</p>
+                          <p className="text-sm text-gray-600">{item.summary}</p>
+                          <div className="flex gap-2 mt-1">
+                            <Badge variant="outline">{item.sentiment}</Badge>
+                            <Badge variant="outline">Impact: {item.impact}</Badge>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                    <div>
+                      <h3 className="font-semibold mb-2">Reasoning</h3>
+                      <p>{analysisResult.reasoning}</p>
+                    </div>
+                  </div>
+                ) : (
+                  <div className="text-center py-4 text-gray-600">
+                    Failed to load analysis. Please try again.
+                  </div>
+                )}
               </DialogDescription>
             </DialogHeader>
           </DialogContent>
