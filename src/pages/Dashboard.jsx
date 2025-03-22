@@ -13,18 +13,12 @@ const Dashboard = () => {
   const navigate = useNavigate();
   
   useEffect(() => {
-    // Check if user is logged in and has completed onboarding
+    // Check if user is logged in
     const isLoggedIn = localStorage.getItem('isLoggedIn');
     
     if (!isLoggedIn) {
       toast.error('Please log in first');
       navigate('/login');
-      return;
-    }
-    
-    if (hasCompletedOnboarding !== 'true') {
-      toast.info('Please complete your profile setup first');
-      navigate('/onboarding');
       return;
     }
     
