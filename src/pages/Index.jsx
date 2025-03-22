@@ -89,14 +89,15 @@ const Index = () => {
                 <div className="absolute -top-4 -right-4 -left-4 -bottom-4 bg-gradient-to-r from-primary/30 to-primary/10 rounded-xl blur-xl"></div>
                 <div className="relative bg-card rounded-xl shadow-xl overflow-hidden border border-border">
                   <img 
-                    src="placeholder.svg" 
+                    src="https://images.klipfolio.com/website/public/5eaa172d-9c85-4a66-9a34-8dd8e3abb8d3/financial-dashboard-example.png" 
                     alt="Financial Dashboard Preview" 
                     className="w-full h-auto"
+                    loading="lazy"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent flex items-end">
                     <div className="p-6 text-white">
                       <h3 className="text-xl font-bold">Financial Dashboard</h3>
-                      <p className="text-white/80">Powered by blockchain technology</p>
+                      <p className="text-white/80">Real-time insights and analytics</p>
                     </div>
                   </div>
                 </div>
