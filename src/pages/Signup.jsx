@@ -20,7 +20,7 @@ const Signup = () => {
           
           <div className="space-y-2 text-center mb-8">
             <div className="mx-auto h-12 w-12 flex items-center justify-center rounded-lg bg-primary overflow-hidden mb-2">
-              <span className="text-white font-semibold text-xl">B</span>
+              <span className="text-white font-semibold text-xl">FF</span>
             </div>
             <h1 className="text-2xl font-bold">Create an account</h1>
             <p className="text-muted-foreground">Sign up to get started with BudgetWise</p>
@@ -34,7 +34,7 @@ const Signup = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-10">
           <div className="flex justify-center items-center">
             <div className="text-sm text-muted-foreground">
-              © 2024 BudgetWise. All rights reserved.
+              © 2025 FinFlow. All rights reserved.
             </div>
           </div>
         </div>

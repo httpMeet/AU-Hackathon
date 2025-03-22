@@ -72,7 +72,7 @@ const Index = () => {
                   onClick={() => navigate('/signup')}
                   className="group"
                 >
-                  Get Started
+                  Sign Up
                   <ArrowRight className="ml-2 group-hover:translate-x-1 transition-transform" />
                 </Button>
                 <Button 
