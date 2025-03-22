@@ -5,8 +5,13 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { toast } from 'sonner';
 import { Eye, EyeOff, Lock, Mail, User, Phone } from 'lucide-react';
+import axios from 'axios';  // Import Axios
+
 
 const SignupForm = () => {
+  const backendUrl = import.meta.env.VITE_BACKEND_URL || "http://127.0.0.1:8000"; 
+
+
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
@@ -25,6 +30,25 @@ const SignupForm = () => {
     }
     
     setIsLoading(true);
+    try {
+      console.log(`${backendUrl}/accounts/signup/`)
+      const response = await axios.post(`${backendUrl}/accounts/signup/`, {
+        name,
+        email,
+        phone,
+        password
+      });
+      localStorage.setItem('accessToken', response.data.access);
+      localStorage.setItem('user_id', response.data.user_id);
+      localStorage.setItem('isLoggedIn', 'true');
+      navigate('/onboarding');
+      toast.success(response.data.message);
+    } catch (error) {
+      console.error('Signup error:', error);
+      toast.error(error.response?.data?.error || 'Signup failed. Please try again.');
+    } finally {
+      setIsLoading(false);
+    }
     
     try {
       // This is a mock registration - in a real app, you would connect to a backend
@@ -32,15 +56,8 @@ const SignupForm = () => {
         // Simulate API call delay
         await new Promise(resolve => setTimeout(resolve, 1000));
         
-        // Mock successful registration
-        localStorage.setItem('isLoggedIn', 'true');
-        localStorage.setItem('hasCompletedOnboarding', 'false');
-        localStorage.setItem('user_name', name);
-        localStorage.setItem('user_email', email);
-        localStorage.setItem('user_phone', phone);
+        // Mock successful registratio
         
-        toast.success('Account created successfully');
-        navigate('/onboarding');
       } else {
         toast.error('Please fill in all fields');
       }

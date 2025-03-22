@@ -5,6 +5,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { toast } from 'sonner';
 import { Eye, EyeOff, Lock, Mail } from 'lucide-react';
+import axios from 'axios';
 
 const LoginForm = () => {
   const [email, setEmail] = useState('');
@@ -12,36 +13,29 @@ const LoginForm = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
+  const backendUrl = import.meta.env.VITE_BACKEND_URL || "http://127.0.0.1:8000";
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
-    
+
     try {
-      // This is a mock login - in a real app, you would validate with a backend
-      if (email && password) {
-        // Simulate API call delay
-        await new Promise(resolve => setTimeout(resolve, 1000));
-        
-        // Mock successful login
-        localStorage.setItem('isLoggedIn', 'true');
-        
-        // Check if user has completed onboarding
-        const hasCompletedOnboarding = localStorage.getItem('hasCompletedOnboarding');
-        
-        if (hasCompletedOnboarding === 'true') {
-          toast.success('Login successful');
-          navigate('/dashboard');
-        } else {
-          toast.info('Please complete your profile setup');
-          navigate('/onboarding');
-        }
-      } else {
-        toast.error('Please fill in all fields');
-      }
+      const response = await axios.post(`${backendUrl}/accounts/login/`, {
+        email,
+        password
+      });
+
+      // Store JWT tokens in localStorage
+      localStorage.setItem('accessToken', response.data.access);
+      localStorage.setItem('refreshToken', response.data.refresh);
+      localStorage.setItem('user_id', response.data.user_id);
+      localStorage.setItem('isLoggedIn', 'true');
+
+      toast.success('Login successful');
+      navigate('/dashboard');
     } catch (error) {
-      toast.error('Login failed. Please try again.');
       console.error('Login error:', error);
+      toast.error(error.response?.data?.error || 'Invalid email or password');
     } finally {
       setIsLoading(false);
     }
@@ -65,7 +59,7 @@ const LoginForm = () => {
             />
           </div>
         </div>
-        
+
         <div className="space-y-2">
           <Label htmlFor="password">Password</Label>
           <div className="relative">
@@ -92,11 +86,11 @@ const LoginForm = () => {
             </button>
           </div>
         </div>
-        
+
         <Button type="submit" className="w-full" disabled={isLoading}>
           {isLoading ? "Signing in..." : "Sign in"}
         </Button>
-        
+
         <div className="text-center text-sm">
           <span className="text-muted-foreground">Don't have an account? </span>
           <button
@@ -112,4 +106,4 @@ const LoginForm = () => {
   );
 };
 
-export default LoginForm; 
+export default LoginForm;

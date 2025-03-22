@@ -4,20 +4,22 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { toast } from 'sonner';
-import { 
-  HelpCircle, 
-  IdCard, 
-  Info, 
-  Map
-} from 'lucide-react';
+import { HelpCircle, IdCard, Info, Map } from 'lucide-react';
 import { Checkbox } from "@/components/ui/checkbox";
+import axios from 'axios';
 
 const OnboardingForm = () => {
+  const backendUrl = import.meta.env.VITE_BACKEND_URL || "http://127.0.0.1:8000"; 
+
   const [panCard, setPanCard] = useState('');
   const [address, setAddress] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [agreeTerms, setAgreeTerms] = useState(false);
   const navigate = useNavigate();
+
+  // Fetch user ID and token from localStorage
+  const token = localStorage.getItem('accessToken');
+  const userId = localStorage.getItem('user_id');
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -26,28 +28,36 @@ const OnboardingForm = () => {
       toast.error('You must agree to the terms and conditions');
       return;
     }
-    
+
+    if (!validatePanCard(panCard)) {
+      toast.error('Invalid PAN card format');
+      return;
+    }
+
     setIsLoading(true);
-    
+
     try {
-      // This is a mock onboarding - in a real app, you would connect to a backend
-      if (panCard && address) {
-        // Simulate API call delay
-        await new Promise(resolve => setTimeout(resolve, 1000));
-        
-        // Store the onboarding data in localStorage for demo purposes
-        localStorage.setItem('hasCompletedOnboarding', 'true');
-        localStorage.setItem('user_panCard', panCard);
-        localStorage.setItem('user_address', address);
-        
-        toast.success('Profile setup completed');
-        navigate('/dashboard');
-      } else {
-        toast.error('Please fill in all required fields');
-      }
+      const response = await axios.post(
+        `${backendUrl}/accounts/userprofile/`,
+        {
+          user: userId,
+          address,
+          ufi: panCard
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            'Content-Type': 'application/json'
+          }
+        }
+      );
+
+      toast.success('Profile setup completed');
+      localStorage.setItem('hasCompletedOnboarding', 'true');
+      navigate('/dashboard');
     } catch (error) {
-      toast.error('Profile setup failed. Please try again.');
       console.error('Onboarding error:', error);
+      toast.error(error.response?.data?.error || 'Failed to complete onboarding');
     } finally {
       setIsLoading(false);
     }
@@ -81,6 +91,7 @@ const OnboardingForm = () => {
                 Why is this needed?
               </button>
             </div>
+            
             <div className="relative">
               <IdCard className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
               <Input
@@ -88,10 +99,7 @@ const OnboardingForm = () => {
                 type="text"
                 placeholder="ABCDE1234F"
                 value={panCard}
-                onChange={(e) => {
-                  // Convert to uppercase for PAN card
-                  setPanCard(e.target.value.toUpperCase());
-                }}
+                onChange={(e) => setPanCard(e.target.value.toUpperCase())}
                 className="pl-10"
                 required
               />
@@ -147,4 +155,4 @@ const OnboardingForm = () => {
   );
 };
 
-export default OnboardingForm; 
+export default OnboardingForm;
