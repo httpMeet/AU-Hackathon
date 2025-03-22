@@ -9,8 +9,8 @@ import axios from 'axios';  // Import Axios
 
 
 const SignupForm = () => {
-  const backendUrl = import.meta.env.VITE_BACKEND_URL || "http://127.0.0.1:8000"; 
-
+  const backendUrl = import.meta.env.VITE_BACKEND_URL || "http://120.120.122.118:8000";
+  console.log(backendUrl);
 
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
