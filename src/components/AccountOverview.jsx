@@ -144,7 +144,7 @@ const accounts = [
   },
 ];
 
-function AccountOverview() {
+function AccountOverview({ onAccountClick }) {
   const [activeTab, setActiveTab] = useState('all');
   const [showPortfolioForm, setShowPortfolioForm] = useState(false);
   const [selectedAccountId, setSelectedAccountId] = useState(null);
@@ -214,6 +214,12 @@ function AccountOverview() {
       console.error('Error getting investment advice:', error);
       toast.error('Failed to generate investment advice. Please try again.');
     }
+  };
+
+  const handleAccountClick = (account, e) => {
+    e.preventDefault(); // Prevent any default navigation
+    setSelectedAccountId(account.id);
+    onAccountClick && onAccountClick(account);
   };
 
   return (
@@ -328,7 +334,11 @@ function AccountOverview() {
         
         <div className="divide-y divide-border">
           {filteredAccounts.map((account) => (
-            <div key={account.id} className="px-6 py-4 hover:bg-muted/30 transition-colors">
+            <div 
+              key={account.id} 
+              className="px-6 py-4 hover:bg-muted/30 transition-colors cursor-pointer" 
+              onClick={(e) => handleAccountClick(account, e)}
+            >
               <div className="flex items-center justify-between">
                 <div className="flex items-center">
                   <div className="w-10 h-10 rounded-full bg-muted flex items-center justify-center mr-4">
@@ -367,7 +377,8 @@ function AccountOverview() {
                     <Button
                       variant="outline"
                       size="sm"
-                      onClick={() => {
+                      onClick={(e) => {
+                        e.stopPropagation();
                         setSelectedAccountId(account.id);
                         setShowPortfolioForm(true);
                       }}

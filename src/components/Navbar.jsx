@@ -46,16 +46,6 @@ const Navbar = () => {
               Dashboard
             </a>
             <a 
-              href="/accounts"
-              onClick={(e) => {
-                e.preventDefault();
-                navigate('/accounts');
-              }}
-              className={`text-sm font-medium ${location.pathname === '/accounts' ? 'text-primary' : 'text-foreground/80 hover:text-primary'} transition-colors`}
-            >
-              Accounts
-            </a>
-            <a 
               href="/insights"
               onClick={(e) => {
                 e.preventDefault();
@@ -122,17 +112,6 @@ const Navbar = () => {
               className={`text-sm font-medium p-2 hover:bg-muted rounded transition-colors ${location.pathname === '/dashboard' ? 'text-primary' : ''}`}
             >
               Dashboard
-            </a>
-            <a 
-              href="/accounts"
-              onClick={(e) => {
-                e.preventDefault();
-                navigate('/accounts');
-                setIsMenuOpen(false);
-              }}
-              className={`text-sm font-medium p-2 hover:bg-muted rounded transition-colors ${location.pathname === '/accounts' ? 'text-primary' : ''}`}
-            >
-              Accounts
             </a>
             <a 
               href="/insights"

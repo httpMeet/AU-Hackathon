@@ -3,8 +3,9 @@ import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import { Checkbox } from '@/components/ui/checkbox';
 import { toast } from 'sonner';
-import { Eye, EyeOff, Lock, Mail, User, Phone, Calendar } from 'lucide-react';
+import { Eye, EyeOff, Lock, Mail, User, Phone, Calendar, CreditCard, Home } from 'lucide-react';
 import axios from 'axios';
 
 const SignupForm = () => {
@@ -14,22 +15,40 @@ const SignupForm = () => {
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
   const [dob, setDob] = useState('');
+  const [panCard, setPanCard] = useState('');
+  const [address, setAddress] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [acceptTerms, setAcceptTerms] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
 
+  const validatePanCard = (pan) => {
+    const panRegex = /^[A-Z]{5}[0-9]{4}[A-Z]{1}$/;
+    return panRegex.test(pan);
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     
-    if (!name || !email || !phone || !dob || !password) {
+    if (!name || !email || !phone || !dob || !password || !panCard || !address) {
       toast.error('Please fill in all fields');
+      return;
+    }
+
+    if (!validatePanCard(panCard)) {
+      toast.error('Please enter a valid PAN card number');
       return;
     }
 
     if (password !== confirmPassword) {
       toast.error('Passwords do not match');
+      return;
+    }
+
+    if (!acceptTerms) {
+      toast.error('Please accept the terms and conditions');
       return;
     }
     
@@ -40,6 +59,8 @@ const SignupForm = () => {
         email,
         phone,
         dob,
+        panCard,
+        address,
         password
       });
       
@@ -48,7 +69,7 @@ const SignupForm = () => {
       localStorage.setItem('isLoggedIn', 'true');
       
       toast.success('Account created successfully!');
-      navigate('/onboarding');
+      navigate('/dashboard');
     } catch (error) {
       console.error('Signup error:', error);
       toast.error(error.response?.data?.error || 'Signup failed. Please try again.');
@@ -123,6 +144,39 @@ const SignupForm = () => {
             />
           </div>
         </div>
+
+        <div className="space-y-2 text-left">
+          <Label htmlFor="panCard" className="text-left block">PAN Card Number</Label>
+          <div className="relative">
+            <CreditCard className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+            <Input
+              id="panCard"
+              type="text"
+              placeholder="ABCDE1234F"
+              value={panCard}
+              onChange={(e) => setPanCard(e.target.value.toUpperCase())}
+              className="pl-10"
+              required
+              maxLength={10}
+            />
+          </div>
+          <p className="text-xs text-muted-foreground mt-1">Format: ABCDE1234F</p>
+        </div>
+
+        <div className="space-y-2 text-left">
+          <Label htmlFor="address" className="text-left block">Address</Label>
+          <div className="relative">
+            <Home className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
+            <textarea
+              id="address"
+              placeholder="Enter your full address"
+              value={address}
+              onChange={(e) => setAddress(e.target.value)}
+              className="w-full min-h-[100px] pl-10 py-2 rounded-md border border-input bg-background px-3 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+              required
+            />
+          </div>
+        </div>
         
         <div className="space-y-2 text-left">
           <Label htmlFor="password" className="text-left block">Password</Label>
@@ -166,6 +220,24 @@ const SignupForm = () => {
               required
             />
           </div>
+        </div>
+
+        <div className="flex items-center space-x-2">
+          <Checkbox 
+            id="terms" 
+            checked={acceptTerms}
+            onCheckedChange={(checked) => setAcceptTerms(checked)}
+            required
+          />
+          <label
+            htmlFor="terms"
+            className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+          >
+            I accept the{" "}
+            <a href="#" className="text-primary hover:underline">
+              terms and conditions
+            </a>
+          </label>
         </div>
         
         <Button type="submit" className="w-full" disabled={isLoading}>
