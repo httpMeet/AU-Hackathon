@@ -1,9 +1,7 @@
-import React, { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 import Navbar from '@/components/Navbar';
-import AccountOverview from '@/components/AccountOverview';
 import TransactionHistory from '@/components/TransactionHistory';
-import ExpenseChart from '@/components/ExpenseChart';
 import BillManagement from '@/components/BillManagement';
 import CreditScore from '@/components/CreditScore';
 import AIChatbot from '@/components/AIChatbot';
@@ -11,7 +9,7 @@ import { toast } from 'sonner';
 
 const Dashboard = () => {
   const navigate = useNavigate();
-  
+
   useEffect(() => {
     // Check if user is logged in
     const isLoggedIn = localStorage.getItem('isLoggedIn');
@@ -35,24 +33,12 @@ const Dashboard = () => {
     <div className="min-h-screen bg-background">
       <Navbar />
       
-      <main className="pt-24 pb-16 px-4 sm:px-6 md:px-10 max-w-7xl mx-auto">
-        <div className="mb-8">
-          <h1 className="text-3xl font-bold">Financial Dashboard</h1>
-          <p className="text-muted-foreground mt-1">Welcome back! Here's an overview of your finances.</p>
+      <main className="container mx-auto pt-24 pb-16 px-4">
+        <div className="mb-12">
+          <h1 className="text-3xl font-bold">Dashboard Overview</h1>
         </div>
-        
-        <div className="grid grid-cols-1 gap-10">
-          {/* Account Overview Section */}
-          <section className="animate-appear opacity-0">
-            <AccountOverview />
-          </section>
-          
-          {/* Expense Charts Section */}
-          <section className="animate-appear opacity-0">
-            <h2 className="text-xl font-semibold mb-6">Expense Analysis</h2>
-            <ExpenseChart />
-          </section>
-          
+
+        <div className="grid grid-cols-1 gap-10">          
           {/* Bills and Credit Section */}
           <section className="grid grid-cols-1 md:grid-cols-2 gap-6 animate-appear opacity-0">
             <BillManagement />
