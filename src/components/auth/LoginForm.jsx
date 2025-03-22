@@ -24,7 +24,7 @@ const LoginForm = () => {
       const response = await axios.post(`${backendUrl}/accounts/login/`, {
         email,
         password,
-        uf_id: ufId
+        ufId
       });
 
       // Store JWT tokens in localStorage

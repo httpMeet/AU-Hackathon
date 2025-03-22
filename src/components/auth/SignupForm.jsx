@@ -68,7 +68,7 @@ const SignupForm = () => {
       localStorage.setItem('user_id', response.data.user_id);
       localStorage.setItem('isLoggedIn', 'true');
       
-      toast.success('Account created successfully!');
+      toast.success(response.data.message);
       navigate('/dashboard');
     } catch (error) {
       console.error('Signup error:', error);
