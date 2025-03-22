@@ -24,13 +24,13 @@ const SignupForm = () => {
     e.preventDefault();
     
     if (!name || !email || !phone || !dob || !password) {
-      toast.error('Please fill in all fields');
-      return;
+        toast.error('Please fill in all fields');
+        return;
     }
 
     if (password !== confirmPassword) {
-      toast.error('Passwords do not match');
-      return;
+        toast.error('Passwords do not match');
+        return;
     }
     
     setIsLoading(true);
@@ -39,7 +39,7 @@ const SignupForm = () => {
         name,
         email,
         phone,
-        dob,
+        dob,  // Include the dob field
         password
       });
       
@@ -55,7 +55,8 @@ const SignupForm = () => {
     } finally {
       setIsLoading(false);
     }
-  };
+};
+
 
   return (
     <div className="w-full max-w-md mx-auto">
