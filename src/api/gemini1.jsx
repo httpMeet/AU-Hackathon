@@ -4,7 +4,10 @@ const API_KEY = 'AIzaSyBYSw0fuXaZQc06gSUJKHegAwNCl7zI9CY';
 
 export const genAI = new GoogleGenerativeAI(API_KEY);
 
-export async function analyzeStock(stockSymbol: string, sharesOwned: number) {
+// Helper function to add delay between requests
+const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+
+export async function analyzeStock(stockSymbol, sharesOwned) {
   const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" });
 
   const prompt = `You are a financial analysis expert. Analyze the stock ${stockSymbol} with ${sharesOwned} stocks owned and return ONLY a JSON response in the exact format shown below. Do not include any additional text, explanations, formatting, or markdown code blocks - only pure JSON.
@@ -41,28 +44,25 @@ export async function analyzeStock(stockSymbol: string, sharesOwned: number) {
     }
   ],
   "reasoning": "<string>"
-}
-
-Base your analysis on:
-- Technical Analysis (price trends, overbought/oversold status, momentum)
-- Sentiment Analysis (news headlines, market sentiment)
-- Risk Assessment (market volatility, sector risks, news impact)
-- Recent News (provide 3-5 relevant news items with their impact on the stock)
-
-CRITICAL: Return ONLY pure JSON. Do not wrap the response in markdown code blocks or add any other formatting.`;
+}`;
 
   try {
+    // Add a small delay before making the request
+    await delay(1000);
+
     const result = await model.generateContent(prompt);
     const response = await result.response;
     let text = response.text();
     
-    // Remove markdown code blocks if present
-    text = text.replace(/^json\n|\n$/g, '');
+    // Remove markdown code blocks and any extra whitespace
+    text = text.replace(/```json\n|\n```|```/g, '');
     text = text.trim();
     
     try {
       // Remove any potential BOM or hidden characters
       const cleanText = text.replace(/^\uFEFF/, '');
+      
+      // Parse the cleaned JSON
       const parsedResponse = JSON.parse(cleanText);
       
       // Validate the response structure
@@ -75,11 +75,14 @@ CRITICAL: Return ONLY pure JSON. Do not wrap the response in markdown code block
       
       return parsedResponse;
     } catch (parseError) {
-      console.error('Failed to parse Gemini response:', text);
+      console.error('Original response:', text);
       throw new Error('Failed to analyze stock. Please try again.');
     }
   } catch (error) {
+    if (error.message?.includes('429') || error.message?.includes('quota')) {
+      throw new Error('API rate limit reached. Please try again in a few moments.');
+    }
     console.error('Error analyzing stock:', error);
     throw error;
   }
-}
+} 
