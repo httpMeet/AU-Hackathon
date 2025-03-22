@@ -167,7 +167,7 @@ const Index = () => {
               <img 
                   src={Logo2} 
                   alt="BudgetWise Logo" 
-                  className="h-16 w-auto"
+                  className="h-full w-full"
                 />
               </div>
               

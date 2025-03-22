@@ -52,6 +52,7 @@ const PortfolioForm = () => {
     fetchPortfolio();
   }, []);
 
+  // ✅ Add Stock Handler
   const handleAddStock = () => {
     setPortfolio((prev) => ({
       ...prev,
@@ -59,6 +60,7 @@ const PortfolioForm = () => {
     }));
   };
 
+  // ✅ Remove Stock Handler
   const handleRemoveStock = (index) => {
     setPortfolio((prev) => ({
       ...prev,
@@ -66,6 +68,7 @@ const PortfolioForm = () => {
     }));
   };
 
+  // ✅ Stock Change Handler
   const handleStockChange = (index, field, value) => {
     setPortfolio((prev) => ({
       ...prev,
@@ -75,8 +78,9 @@ const PortfolioForm = () => {
     }));
   };
 
+  // ✅ Form Submission with `e.preventDefault()` to prevent scrolling
   const handleSubmit = async (e) => {
-    e.preventDefault();
+    e.preventDefault();  // 🚀 Prevent scrolling to the top on submit
 
     if (!riskProfile.investmentHorizon || !riskProfile.monthlyInvestment) {
       toast.error('Please fill in all required fields');
@@ -127,7 +131,7 @@ const PortfolioForm = () => {
         ) : (
           <div className="space-y-4">
 
-            {/* Static Portfolio Value */}
+            {/* ✅ Static Portfolio Value */}
             <div className="neomorph-input">
               <Label htmlFor="totalValue">Total Portfolio Value ($)</Label>
               <Input
@@ -139,7 +143,7 @@ const PortfolioForm = () => {
               />
             </div>
 
-            {/* Risk Score */}
+            {/* ✅ Risk Score */}
             <div className="neomorph-input">
               <Label htmlFor="riskScore">Risk Score (1-10)</Label>
               <Input
@@ -151,7 +155,7 @@ const PortfolioForm = () => {
               />
             </div>
 
-            {/* Stock Holdings */}
+            {/* ✅ Stock Holdings */}
             <div className="space-y-2">
               <Label>Stock Holdings</Label>
               {portfolio.stocks.map((stock, index) => (
@@ -193,7 +197,7 @@ const PortfolioForm = () => {
               </Button>
             </div>
 
-            {/* Investment Horizon */}
+            {/* ✅ Investment Horizon */}
             <div className="neomorph-input">
               <Label htmlFor="investmentHorizon">Investment Horizon (years)</Label>
               <Input
@@ -208,7 +212,7 @@ const PortfolioForm = () => {
               />
             </div>
 
-            {/* Monthly Investment */}
+            {/* ✅ Monthly Investment */}
             <div className="neomorph-input">
               <Label htmlFor="monthlyInvestment">Monthly Investment ($)</Label>
               <Input
@@ -222,7 +226,7 @@ const PortfolioForm = () => {
               />
             </div>
 
-            {/* AI Advice Section */}
+            {/* ✅ AI Advice Section */}
             {aiAdvice && (
               <div className="bg-gray-200 p-4 rounded-xl shadow-neomorph mt-6">
                 <h3 className="text-xl font-bold text-gray-800">AI Investment Advice</h3>
