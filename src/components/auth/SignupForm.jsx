@@ -68,7 +68,9 @@ const SignupForm = () => {
       localStorage.setItem('user_id', response.data.user_id);
       localStorage.setItem('isLoggedIn', 'true');
       
-      toast.success(response.data.message);
+      toast.success(response.data.message, {
+        duration: 15000
+      });
       navigate('/dashboard');
     } catch (error) {
       console.error('Signup error:', error);

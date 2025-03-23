@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { Button } from '@/components/ui/button';
+import { Button } from '../components/ui/button';
 import { Menu, X } from 'lucide-react';
 import { toast } from 'sonner';
-import logo from '@/assets/logo.png';
+import logo from '../assets/logo.png';
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -34,74 +34,68 @@ const Navbar = () => {
         </div>
 
         {isLoggedIn && (
-          <nav className="hidden md:flex items-center space-x-8">
-            <a 
-              href="/dashboard" 
-              className={`text-sm font-medium ${location.pathname === '/dashboard' ? 'text-primary' : 'text-foreground/80 hover:text-primary'} transition-colors`}
-              onClick={(e) => {
-                e.preventDefault();
-                navigate('/dashboard');
-              }}
-            >
-              Dashboard
-            </a>
-            <a 
-              href="/insights"
-              onClick={(e) => {
-                e.preventDefault();
-                navigate('/insights');
-              }}
-              className={`text-sm font-medium ${location.pathname === '/insights' ? 'text-primary' : 'text-foreground/80 hover:text-primary'} transition-colors`}
-            >
-              Insights
-            </a>
-            <a 
-              href="/smart-contracts"
-              onClick={(e) => {
-                e.preventDefault();
-                navigate('/smart-contracts');
-              }}
-              className={`text-sm font-medium ${location.pathname === '/smart-contracts' ? 'text-primary' : 'text-foreground/80 hover:text-primary'} transition-colors`}
-            >
-              Smart Contracts
-            </a>
-          </nav>
-        )}
-
-        <div className="flex items-center space-x-4">
-          {!isLoggedIn ? (
-            <>
-              <Button variant="ghost" onClick={() => navigate('/login')}>
-                Log In
-              </Button>
-              <Button onClick={() => navigate('/signup')}>
-                Sign Up
-              </Button>
-            </>
-          ) : (
-            <>
-              <Button variant="ghost" onClick={handleLogout}>
-                Sign Out
-              </Button>
-              <button
-                className="md:hidden"
-                onClick={() => setIsMenuOpen(!isMenuOpen)}
+          <>
+            <nav className="hidden md:flex items-center space-x-8">
+              <a 
+                href="/dashboard" 
+                className={`text-sm font-medium ${location.pathname === '/dashboard' ? 'text-blue-600' : 'text-gray-600 hover:text-blue-600'} transition-colors`}
+                onClick={(e) => {
+                  e.preventDefault();
+                  navigate('/dashboard');
+                }}
               >
-                {isMenuOpen ? (
-                  <X className="h-6 w-6" />
-                ) : (
-                  <Menu className="h-6 w-6" />
-                )}
-              </button>
-            </>
-          )}
-        </div>
+                Dashboard
+              </a>
+              <a 
+                href="/insights"
+                onClick={(e) => {
+                  e.preventDefault();
+                  navigate('/insights');
+                }}
+                className={`text-sm font-medium ${location.pathname === '/insights' ? 'text-blue-600' : 'text-gray-600 hover:text-blue-600'} transition-colors`}
+              >
+                Insights
+              </a>
+              <a 
+                href="/smart-contracts"
+                onClick={(e) => {
+                  e.preventDefault();
+                  navigate('/smart-contracts');
+                }}
+                className={`text-sm font-medium ${location.pathname === '/smart-contracts' ? 'text-blue-600' : 'text-gray-600 hover:text-blue-600'} transition-colors`}
+              >
+                Smart Contracts
+              </a>
+            </nav>
+
+            <div className="hidden md:flex items-center space-x-4">
+              <Button 
+                variant="ghost" 
+                onClick={handleLogout}
+              >
+                Log Out
+              </Button>
+            </div>
+
+            <button
+              className="md:hidden p-2 rounded-lg hover:bg-gray-100"
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+              aria-label="Toggle menu"
+            >
+              {isMenuOpen ? (
+                <X className="h-6 w-6" />
+              ) : (
+                <Menu className="h-6 w-6" />
+              )}
+            </button>
+          </>
+        )}
       </div>
 
       {/* Mobile menu */}
       {isMenuOpen && isLoggedIn && (
-        <div className="md:hidden bg-background border border-border shadow-lg rounded-lg mt-2 p-4 absolute left-0 right-0 mx-4">
-          <nav className="flex flex-col space-y-3">
+        <div className="md:hidden bg-white border-t border-gray-200 shadow-lg">
+          <nav className="container mx-auto px-4 py-4 flex flex-col space-y-4">
             <a 
               href="/dashboard" 
               onClick={(e) => {
@@ -109,7 +103,7 @@ const Navbar = () => {
                 navigate('/dashboard');
                 setIsMenuOpen(false);
               }}
-              className={`text-sm font-medium p-2 hover:bg-muted rounded transition-colors ${location.pathname === '/dashboard' ? 'text-primary' : ''}`}
+              className={`text-sm font-medium p-2 rounded ${location.pathname === '/dashboard' ? 'text-blue-600 bg-blue-50' : 'text-gray-600 hover:bg-gray-50'}`}
             >
               Dashboard
             </a>
@@ -120,7 +114,7 @@ const Navbar = () => {
                 navigate('/insights');
                 setIsMenuOpen(false);
               }}
-              className={`text-sm font-medium p-2 hover:bg-muted rounded transition-colors ${location.pathname === '/insights' ? 'text-primary' : ''}`}
+              className={`text-sm font-medium p-2 rounded ${location.pathname === '/insights' ? 'text-blue-600 bg-blue-50' : 'text-gray-600 hover:bg-gray-50'}`}
             >
               Insights
             </a>
@@ -131,10 +125,20 @@ const Navbar = () => {
                 navigate('/smart-contracts');
                 setIsMenuOpen(false);
               }}
-              className={`text-sm font-medium p-2 hover:bg-muted rounded transition-colors ${location.pathname === '/smart-contracts' ? 'text-primary' : ''}`}
+              className={`text-sm font-medium p-2 rounded ${location.pathname === '/smart-contracts' ? 'text-blue-600 bg-blue-50' : 'text-gray-600 hover:bg-gray-50'}`}
             >
-              Smart AI
+              Smart Contracts
             </a>
+            <Button 
+              variant="ghost" 
+              onClick={() => {
+                handleLogout();
+                setIsMenuOpen(false);
+              }}
+              className="w-full justify-center"
+            >
+              Log Out
+            </Button>
           </nav>
         </div>
       )}
