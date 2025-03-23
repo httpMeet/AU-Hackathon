@@ -24,7 +24,7 @@ const Login = () => {
               <span className="text-white font-semibold text-xl">FF</span>
             </div>
             <h1 className="text-2xl font-bold">Welcome back</h1>
-            <p className="text-muted-foreground">Sign in to your BudgetWise account</p>
+            <p className="text-muted-foreground">Sign in to your FinFlow account</p>
           </div>
           
           <LoginForm />

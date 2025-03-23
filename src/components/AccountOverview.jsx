@@ -49,49 +49,10 @@ const accounts = [
     dueDate: '2023-05-15',
   },
   // Fixed deposits
-  {
-    id: 4,
-    name: 'Fixed Deposit',
-    institution: 'National Savings Bank',
-    accountNumber: 'FD-1234',
-    balance: 25000.00,
-    type: 'fd',
-    category: 'deposits',
-    status: 'active',
-    interestRate: '5.5%',
-    maturityDate: '2024-08-10',
-    term: '1 year',
-  },
-  {
-    id: 5,
-    name: 'Tax Saver FD',
-    institution: 'City Financial',
-    accountNumber: 'TSFD-5678',
-    balance: 150000.00,
-    type: 'fd',
-    category: 'deposits',
-    status: 'active',
-    interestRate: '6.8%',
-    maturityDate: '2026-03-31',
-    term: '5 years',
-  },
   // PPS (Public Provident Scheme)
-  {
-    id: 6,
-    name: 'Public Provident Scheme',
-    institution: 'Government Savings',
-    accountNumber: 'PPS-9876',
-    balance: 325000.00,
-    type: 'pps',
-    category: 'retirement',
-    status: 'active',
-    interestRate: '7.1%',
-    maturityDate: '2035-12-31',
-    yearlyContribution: 150000,
-  },
   // Debit cards
   {
-    id: 7,
+    id: 6,
     name: 'Platinum Debit Card',
     institution: 'First Digital Bank',
     accountNumber: '•••• 3579',
@@ -103,7 +64,7 @@ const accounts = [
   },
   // Investments - Stocks
   {
-    id: 8,
+    id: 7,
     name: 'Stock Portfolio',
     institution: 'InvestTrade Securities',
     accountNumber: 'ST-2468',
@@ -116,7 +77,7 @@ const accounts = [
   },
   // KVPs (Kisan Vikas Patra)
   {
-    id: 9,
+    id: 8,
     name: 'Kisan Vikas Patra',
     institution: 'Post Office Savings',
     certificateNumber: 'KVP-1357',
@@ -130,7 +91,7 @@ const accounts = [
   },
   // Additional bank account
   {
-    id: 10,
+    id: 9,
     name: 'Joint Account',
     institution: 'Community Bank',
     accountNumber: '•••• 8642',
@@ -197,9 +158,7 @@ function AccountOverview({ onAccountClick }) {
     switch(category) {
       case 'banking': return 'Bank Accounts';
       case 'cards': return 'Cards';
-      case 'deposits': return 'Fixed Deposits';
       case 'investments': return 'Investments';
-      case 'retirement': return 'Retirement';
       default: return category.charAt(0).toUpperCase() + category.slice(1);
     }
   };
@@ -307,27 +266,11 @@ function AccountOverview({ onAccountClick }) {
             </button>
             <button
               className={`px-4 py-2 text-sm rounded-full transition-colors ${
-                activeTab === 'deposits' ? 'bg-primary text-white' : 'hover:bg-muted'
-              }`}
-              onClick={() => setActiveTab('deposits')}
-            >
-              Fixed Deposits
-            </button>
-            <button
-              className={`px-4 py-2 text-sm rounded-full transition-colors ${
                 activeTab === 'investments' ? 'bg-primary text-white' : 'hover:bg-muted'
               }`}
               onClick={() => setActiveTab('investments')}
             >
               Investments
-            </button>
-            <button
-              className={`px-4 py-2 text-sm rounded-full transition-colors ${
-                activeTab === 'retirement' ? 'bg-primary text-white' : 'hover:bg-muted'
-              }`}
-              onClick={() => setActiveTab('retirement')}
-            >
-              Retirement
             </button>
           </div>
         </div>
