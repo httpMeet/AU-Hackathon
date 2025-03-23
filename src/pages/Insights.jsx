@@ -198,14 +198,14 @@ const Insights = () => {
                   <div>
                     <div className="flex items-center gap-3">
                       <h3 className="text-2xl font-bold text-gray-900">{stock.symbol}</h3>
-                      <span className={`${getChangeColor(stock.change)} font-semibold`}>
+                      <span className={`₹{getChangeColor(stock.change)} font-semibold`}>
                         {stock.change}
                       </span>
                     </div>
                     <p className="text-lg text-gray-600 mt-1">{stock.name}</p>
                     <div className="mt-2">
                       <p className="text-xl font-semibold text-gray-900">
-                        ${stock.currentPrice}
+                      ₹{stock.currentPrice}
                       </p>
                       <p className="text-sm text-gray-600">
                         {stock.sharesOwned} shares owned
