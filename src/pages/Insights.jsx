@@ -13,6 +13,8 @@ import {
 } from "@/components/ui/dialog";
 import { toast } from 'sonner';
 import { analyzeStock } from '@/api/gemini1';
+import TaxAnalysis from '@/components/TaxAnalysis';
+import FinancialCharts from '@/components/FinancialCharts';
 
 const stocksList = [
   {
@@ -46,6 +48,7 @@ const Insights = () => {
   const [analysisResult, setAnalysisResult] = useState(null);
   const [stockPredictions, setStockPredictions] = useState({});
   const [analyzing, setAnalyzing] = useState(false);
+  const [activeSection, setActiveSection] = useState('stocks');
 
   useEffect(() => {
     const isLoggedIn = localStorage.getItem('isLoggedIn');
@@ -143,52 +146,96 @@ const Insights = () => {
       <Navbar />
       <main className="container mx-auto pt-24 pb-16 px-4">
         <div className="mb-8">
-          <h1 className="text-3xl font-bold text-gray-900">Stock Predictions</h1>
+          <h1 className="text-3xl font-bold text-gray-900">Financial Insights</h1>
           <p className="text-gray-600 mt-2">
-            AI-powered stock recommendations with real-time analysis
+            Comprehensive financial analysis and insights
           </p>
-          {loading && (
-            <p className="text-sm text-gray-600 mt-2">
-              Loading predictions... This may take a moment.
-            </p>
-          )}
         </div>
 
-        <div className="grid gap-4">
-          {stocksList.map((stock) => (
-            <Card 
-              key={stock.symbol} 
-              className="p-6 hover:shadow-lg transition-shadow"
+        <div className="mb-8">
+          <nav className="flex space-x-4 border-b">
+            <button
+              onClick={() => setActiveSection('stocks')}
+              className={`py-2 px-4 -mb-px ${
+                activeSection === 'stocks'
+                  ? 'border-b-2 border-primary text-primary font-medium'
+                  : 'text-gray-500 hover:text-gray-700'
+              }`}
             >
-              <div className="flex items-center justify-between">
-                <div>
-                  <div className="flex items-center gap-3">
-                    <h3 className="text-2xl font-bold text-gray-900">{stock.symbol}</h3>
-                    <span className={`${getChangeColor(stock.change)} font-semibold`}>
-                      {stock.change}
-                    </span>
-                  </div>
-                  <p className="text-lg text-gray-600 mt-1">{stock.name}</p>
-                  <div className="mt-2">
-                    <p className="text-xl font-semibold text-gray-900">
-                      ₹{stock.currentPrice}
-                    </p>
-                    <p className="text-sm text-gray-600">
-                      {stock.sharesOwned} shares owned
-                    </p>
-                  </div>
-                </div>
-                <Button
-                  onClick={() => handleStockClick(stock)}
-                  className={`${getPredictionStyle(stockPredictions[stock.symbol])} font-bold text-lg px-8 py-6`}
-                  disabled={analyzing}
-                >
-                  {stockPredictions[stock.symbol] || 'ANALYZING...'}
-                </Button>
-              </div>
-            </Card>
-          ))}
+              Stock Predictions
+            </button>
+            <button
+              onClick={() => setActiveSection('financial')}
+              className={`py-2 px-4 -mb-px ${
+                activeSection === 'financial'
+                  ? 'border-b-2 border-primary text-primary font-medium'
+                  : 'text-gray-500 hover:text-gray-700'
+              }`}
+            >
+              Financial Overview
+            </button>
+            <button
+              onClick={() => setActiveSection('tax')}
+              className={`py-2 px-4 -mb-px ${
+                activeSection === 'tax'
+                  ? 'border-b-2 border-primary text-primary font-medium'
+                  : 'text-gray-500 hover:text-gray-700'
+              }`}
+            >
+              Tax Analysis
+            </button>
+          </nav>
         </div>
+
+        {activeSection === 'stocks' && (
+          <div className="grid gap-4">
+            {stocksList.map((stock) => (
+              <Card 
+                key={stock.symbol} 
+                className="p-6 hover:shadow-lg transition-shadow"
+              >
+                <div className="flex items-center justify-between">
+                  <div>
+                    <div className="flex items-center gap-3">
+                      <h3 className="text-2xl font-bold text-gray-900">{stock.symbol}</h3>
+                      <span className={`${getChangeColor(stock.change)} font-semibold`}>
+                        {stock.change}
+                      </span>
+                    </div>
+                    <p className="text-lg text-gray-600 mt-1">{stock.name}</p>
+                    <div className="mt-2">
+                      <p className="text-xl font-semibold text-gray-900">
+                        ${stock.currentPrice}
+                      </p>
+                      <p className="text-sm text-gray-600">
+                        {stock.sharesOwned} shares owned
+                      </p>
+                    </div>
+                  </div>
+                  <Button
+                    onClick={() => handleStockClick(stock)}
+                    className={`${getPredictionStyle(stockPredictions[stock.symbol])} font-bold text-lg px-8 py-6`}
+                    disabled={analyzing}
+                  >
+                    {stockPredictions[stock.symbol] || 'ANALYZING...'}
+                  </Button>
+                </div>
+              </Card>
+            ))}
+          </div>
+        )}
+
+        {activeSection === 'financial' && (
+          <div className="space-y-8">
+            <FinancialCharts />
+          </div>
+        )}
+
+        {activeSection === 'tax' && (
+          <div className="space-y-8">
+            <TaxAnalysis />
+          </div>
+        )}
 
         <Dialog open={showDialog} onOpenChange={setShowDialog}>
           <DialogContent className="max-w-2xl">

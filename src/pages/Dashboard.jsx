@@ -6,8 +6,6 @@ import BillManagement from '@/components/BillManagement';
 import CreditScore from '@/components/CreditScore';
 import AccountOverview from '@/components/AccountOverview';
 import AIChatbot from '@/components/AIChatbot';
-import TaxAnalysis from '@/components/TaxAnalysis';
-import FinancialCharts from '@/components/FinancialCharts';
 import { toast } from 'sonner';
 import { ChevronDown } from 'lucide-react';
 
@@ -46,7 +44,6 @@ const Dashboard = () => {
     { id: 'overview', label: 'Overview' },
     { id: 'transactions', label: 'Transactions' },
     { id: 'bills', label: 'Investments' },
-    { id: 'tax', label: 'Tax Analysis' },
     { id: 'credit', label: 'Credit Score' },
   ];
 
@@ -56,8 +53,8 @@ const Dashboard = () => {
       
       <main className="container mx-auto pt-24 pb-16 px-4">
         <div className="mb-8">
-          <h1 className="text-4xl font-bold mb-2">Financial Dashboard</h1>
-          <p className="text-gray-600">Manage your finances and analyze your tax situation</p>
+          <h1 className="text-4xl font-bold mb-2">Dashboard</h1>
+          <p className="text-gray-600">Manage your accounts and transactions</p>
         </div>
 
         <div className="mb-8">
@@ -138,13 +135,11 @@ const Dashboard = () => {
                   </div>
                 )}
               </div>
-              <FinancialCharts />
             </div>
           )}
 
           {activeTab === 'transactions' && <TransactionHistory />}
           {activeTab === 'bills' && <BillManagement />}
-          {activeTab === 'tax' && <TaxAnalysis />}
           {activeTab === 'credit' && <CreditScore />}
         </div>
 
