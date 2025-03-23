@@ -10,7 +10,7 @@ import Signup from "./pages/Signup.jsx";
 import Dashboard from "./pages/Dashboard.jsx";
 import Accounts from "./pages/Accounts.jsx";
 import Insights from "./pages/Insights.jsx";
-import SmartContracts from "./pages/SmartContracts.jsx";
+import SmartContracts from "./pages/SmartContracts";
 import NotFound from "./pages/NotFound.jsx";
 
 const queryClient = new QueryClient();
