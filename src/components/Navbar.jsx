@@ -72,7 +72,7 @@ const Navbar = () => {
           {!isLoggedIn ? (
             <>
               <Button variant="ghost" onClick={() => navigate('/login')}>
-                Sign In
+                Log In
               </Button>
               <Button onClick={() => navigate('/signup')}>
                 Sign Up
@@ -133,7 +133,7 @@ const Navbar = () => {
               }}
               className={`text-sm font-medium p-2 hover:bg-muted rounded transition-colors ${location.pathname === '/smart-contracts' ? 'text-primary' : ''}`}
             >
-              Smart Contracts
+              Smart AI
             </a>
           </nav>
         </div>

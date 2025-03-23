@@ -48,6 +48,32 @@ const accounts = [
     creditLimit: 10000,
     dueDate: '2023-05-15',
   },
+  {
+    id: 4,
+    name: 'Rent',
+    institution: 'Various Branches',
+    accountNumber: '•••• 2468',
+    balance: 1200000,
+    type: 'credit',
+    category: 'cards',
+    status: 'active',
+    trend: 'down',
+    creditLimit: 10000,
+    dueDate: '2023-05-15',
+  },
+  {
+    id: 5,
+    name: 'Premium Credit Card',
+    institution: 'Global Finance',
+    accountNumber: '•••• 2468',
+    balance: 1453.28,
+    type: 'credit',
+    category: 'cards',
+    status: 'active',
+    trend: 'down',
+    creditLimit: 10000,
+    dueDate: '2023-05-15',
+  },
   // Fixed deposits
   // PPS (Public Provident Scheme)
   // Debit cards
@@ -280,7 +306,7 @@ function AccountOverview({ onAccountClick }) {
               }`}
               onClick={() => setActiveTab('cards')}
             >
-              Cards
+              Expense
             </button>
             <button
               className={`px-4 py-2 text-sm rounded-full transition-colors ${
@@ -391,14 +417,6 @@ function AccountOverview({ onAccountClick }) {
                 </div>
               )}
               
-              {account.type === 'credit' && (
-                <div className="mt-2 pl-14 text-xs text-muted-foreground">
-                  <div className="flex space-x-4">
-                    <span>Credit Limit: ₹{account.creditLimit?.toLocaleString()}</span>
-                    <span>Due Date: {new Date(account.dueDate).toLocaleDateString()}</span>
-                  </div>
-                </div>
-              )}
               
               
               {/* Portfolio Form and Advice Display */}
