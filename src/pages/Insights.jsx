@@ -16,39 +16,25 @@ import { analyzeStock } from '@/api/gemini1';
 
 const stocksList = [
   {
-    symbol: 'AAPL',
-    name: 'Apple Inc.',
-    currentPrice: 175.34,
-    change: '+2.5%',
-    sharesOwned: 100
+    symbol: 'RELIANCE',
+    name: 'Reliance Industries',
+    currentPrice: 1276.35,
+    change: '+1.06%',
+    sharesOwned: 500
   },
   {
-    symbol: 'MSFT',
-    name: 'Microsoft Corporation',
-    currentPrice: 415.50,
-    change: '+0.8%',
-    sharesOwned: 50
+    symbol: 'HDFCBANK',
+    name: 'HDFC Bank',
+    currentPrice: 1770.35,
+    change: '+0.09%',
+    sharesOwned: 300
   },
   {
-    symbol: 'GOOGL',
-    name: 'Alphabet Inc.',
-    currentPrice: 147.60,
-    change: '-1.2%',
-    sharesOwned: 75
-  },
-  {
-    symbol: 'AMZN',
-    name: 'Amazon.com Inc.',
-    currentPrice: 178.25,
-    change: '+3.1%',
-    sharesOwned: 60
-  },
-  {
-    symbol: 'NVDA',
-    name: 'NVIDIA Corporation',
-    currentPrice: 890.15,
-    change: '+0.5%',
-    sharesOwned: 40
+    symbol: 'TATAMOTORS',
+    name: 'Tata Motors',
+    currentPrice: 702.6,
+    change: '+36.3%',
+    sharesOwned: 800
   }
 ];
 
@@ -185,7 +171,7 @@ const Insights = () => {
                   <p className="text-lg text-gray-600 mt-1">{stock.name}</p>
                   <div className="mt-2">
                     <p className="text-xl font-semibold text-gray-900">
-                      ${stock.currentPrice}
+                      ₹{stock.currentPrice}
                     </p>
                     <p className="text-sm text-gray-600">
                       {stock.sharesOwned} shares owned
@@ -245,8 +231,8 @@ const Insights = () => {
                     </div>
                     <div>
                       <h3 className="font-semibold mb-2">Portfolio Impact</h3>
-                      <p>Current Value: ${analysisResult.portfolio_impact.current_value.toFixed(2)}</p>
-                      <p>Potential Change: ${analysisResult.portfolio_impact.potential_change.toFixed(2)}</p>
+                      <p>Current Value: ₹{analysisResult.portfolio_impact.current_value.toFixed(2)}</p>
+                      <p>Potential Change: ₹{analysisResult.portfolio_impact.potential_change.toFixed(2)}</p>
                     </div>
                     <div>
                       <h3 className="font-semibold mb-2">Recent News</h3>

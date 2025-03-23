@@ -1,23 +1,125 @@
 {
-  "income_distribution": [
-    { "category": "Salary", "amount": 850000 },
-    { "category": "Business", "amount": 250000 },
-    { "category": "Investments", "amount": 150000 },
-    { "category": "Rental", "amount": 120000 },
-    { "category": "Other", "amount": 80000 }
-  ],
-  "monthly_expenses": [
-    { "month": "Jan", "amount": 45000 },
-    { "month": "Feb", "amount": 42000 },
-    { "month": "Mar", "amount": 48000 },
-    { "month": "Apr", "amount": 51000 },
-    { "month": "May", "amount": 46000 },
-    { "month": "Jun", "amount": 49000 },
-    { "month": "Jul", "amount": 52000 },
-    { "month": "Aug", "amount": 47000 },
-    { "month": "Sep", "amount": 45000 },
-    { "month": "Oct", "amount": 48000 },
-    { "month": "Nov", "amount": 53000 },
-    { "month": "Dec", "amount": 55000 }
+  "users": [
+      {
+          "user_id": "R002",
+          "name": "FreshMart Supermarket",
+          "business_type": "Supermarket Chain",
+          "location": "Bangalore",
+          "annual_revenue": 40000000,
+          "business_income": 12000000,
+          "sales": {
+              "monthly_sales": 3500000,
+              "online_sales": 1000000,
+              "offline_sales": 2500000
+          },
+          "inventory": {
+              "total_value": 8000000,
+              "categories": [
+                  {"category": "Groceries", "value": 3000000},
+                  {"category": "Dairy & Beverages", "value": 1500000},
+                  {"category": "Electronics", "value": 1000000},
+                  {"category": "Personal Care", "value": 1500000}
+              ]
+          },
+          "expenses": {
+              "rent": 1200000,
+              "salaries": 5000000,
+              "utilities": 500000,
+              "marketing": 700000,
+              "insurance": 400000,
+              "logistics": 1500000,
+              "total_expenses": 9300000
+          },
+          "investments": {
+              "stocks": [
+                  {"company": "Reliance Industries", "company_code": "RELIANCE", "stocks_owned": 500, "purchase_price": 2400},
+                  {"company": "HDFC Bank", "company_code": "HDFCBANK", "stocks_owned": 300, "purchase_price": 1600},
+                  {"company": "Tata Motors", "company_code": "TATAMOTORS", "stocks_owned": 800, "purchase_price": 450}
+              ],
+              "mutual_funds": [
+                  {"fund_name": "HDFC Equity Fund", "investment_amount": 500000},
+                  {"fund_name": "SBI Bluechip Fund", "investment_amount": 400000}
+              ],
+              "real_estate": [
+                  {"type": "Supermarket Premises", "location": "Bangalore", "value": 15000000}
+              ],
+              "gold_bonds": [
+                  {"issuer": "RBI", "grams": 200, "purchase_price": 5000}
+              ]
+          },
+          "bank_accounts": {
+              "business_account": {"balance": 2000000, "bank": "HDFC Bank"},
+              "current_account": {"balance": 750000, "bank": "Axis Bank"},
+              "fixed_deposits": [
+                  {"amount": 5000000, "interest_rate": 6.8, "tenure_years": 4, "bank": "SBI"}
+              ],
+              "recurring_deposits": {
+                  "monthly_deposit": 25000,
+                  "interest_rate": 6.2,
+                  "tenure_years": 3,
+                  "bank": "ICICI Bank"
+              },
+              "credit_cards": [
+                  {"bank": "HDFC", "limit": 500000, "current_due": 150000},
+                  {"bank": "Axis", "limit": 300000, "current_due": 50000}
+              ],
+              "past_transactions": [
+                  {"type": "stock_purchase", "company": "Reliance Industries", "amount": 1200000, "date": "2024-02-15"},
+                  {"type": "stock_sell", "company": "Tata Motors", "amount": 320000, "date": "2024-03-01"},
+                  {"type": "loan_payment", "amount": 500000, "date": "2024-01-25"},
+                  {"type": "interest_received", "amount": 30000, "source": "SBI FD", "date": "2024-03-10"}
+              ]
+          },
+          "loans": {
+              "business_loan": {
+                  "amount": 7000000,
+                  "interest_rate": 8.7,
+                  "tenure_years": 10,
+                  "bank": "HDFC Bank",
+                  "emi": 90000,
+                  "outstanding": 6300000
+              },
+              "inventory_loan": {
+                  "amount": 3000000,
+                  "interest_rate": 9.5,
+                  "bank": "Kotak Mahindra Bank",
+                  "outstanding": 2700000
+              }
+          },
+          "assets": {
+              "real_estate": [
+                  {"type": "Supermarket Premises", "location": "Bangalore", "value": 15000000}
+              ],
+              "vehicles": [
+                  {"model": "Tata 407", "value": 1200000},
+                  {"model": "Mahindra Bolero Pickup", "value": 900000}
+              ],
+              "office_equipment": {"total_value": 800000}
+          },
+          "profit_and_loss": {
+              "total_income": 12000000,
+              "total_expenses": 9300000,
+              "net_profit": 2700000
+          },
+          "debt_liabilities": {
+              "loan_outstanding": 9000000,
+              "credit_card_debt": 200000
+          },
+          "insurance": {
+              "business_insurance": {"coverage": 3000000, "premium": 70000},
+              "employee_health_insurance": {"coverage": 2000000, "premium": 350000}
+          },
+          "business_expansion_plans": {
+              "new_supermarkets": [
+                  {"location": "Hyderabad", "budget": 7000000},
+                  {"location": "Pune", "budget": 6500000}
+              ],
+              "ecommerce_investment": 3000000
+          },
+          "retirement_accounts": {
+              "epf": {"balance": 1200000, "contribution": 70000},
+              "nps": {"balance": 750000, "annual_contribution": 120000}
+          }
+      }
   ]
-} 
+}
