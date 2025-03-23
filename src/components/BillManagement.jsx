@@ -1,130 +1,101 @@
 import React from 'react';
-import { Clock, Zap, Home, Wifi, Phone, Plus } from 'lucide-react';
+import { TrendingUp, Banknote, Home, Gem, Plus } from 'lucide-react';
 import AnimatedCard from './AnimatedCard';
 import StatusBadge from './StatusBadge';
 
-const upcomingBills = [
-  {
-    id: 1,
-    name: 'Electricity Bill',
-    amount: 145.00,
-    dueDate: '2023-06-15',
-    category: 'utilities',
-    status: 'upcoming',
-    autopay: true,
-  },
-  {
-    id: 2,
-    name: 'Mortgage Payment',
-    amount: 1850.00,
-    dueDate: '2023-06-20',
-    category: 'housing',
-    status: 'upcoming',
-    autopay: true,
-  },
-  {
-    id: 3,
-    name: 'Internet Service',
-    amount: 79.99,
-    dueDate: '2023-06-22',
-    category: 'utilities',
-    status: 'upcoming',
-    autopay: false,
-  },
-  {
-    id: 4,
-    name: 'Phone Bill',
-    amount: 85.00,
-    dueDate: '2023-06-25',
-    category: 'utilities',
-    status: 'upcoming',
-    autopay: true,
-  },
-];
+const investments = {
+  stocks: [
+    { company: 'Reliance Industries', company_code: 'RELIANCE', stocks_owned: 500, purchase_price: 2400 },
+    { company: 'HDFC Bank', company_code: 'HDFCBANK', stocks_owned: 300, purchase_price: 1600 },
+    { company: 'Tata Motors', company_code: 'TATAMOTORS', stocks_owned: 800, purchase_price: 450 }
+  ],
+  mutual_funds: [
+    { fund_name: 'HDFC Equity Fund', investment_amount: 500000 },
+    { fund_name: 'SBI Bluechip Fund', investment_amount: 400000 }
+  ],
+  real_estate: [
+    { type: 'Supermarket Premises', location: 'Bangalore', value: 15000000 }
+  ],
+  gold_bonds: [
+    { issuer: 'RBI', grams: 200, purchase_price: 5000 }
+  ]
+};
 
-const BillManagement = () => {
+const InvestmentDashboard = () => {
   const getCategoryIcon = (category) => {
     switch(category) {
-      case 'utilities':
-        return <Zap size={18} className="text-amber-500" />;
-      case 'housing':
-        return <Home size={18} className="text-blue-500" />;
-      case 'internet':
-        return <Wifi size={18} className="text-purple-500" />;
-      case 'phone':
-        return <Phone size={18} className="text-green-500" />;
+      case 'stocks':
+        return <TrendingUp size={18} className="text-green-500" />;
+      case 'mutual_funds':
+        return <Banknote size={18} className="text-blue-500" />;
+      case 'real_estate':
+        return <Home size={18} className="text-purple-500" />;
+      case 'gold_bonds':
+        return <Gem size={18} className="text-amber-500" />;
       default:
-        return <Clock size={18} className="text-gray-500" />;
+        return null;
     }
   };
-  
-  const getDaysRemaining = (dueDate) => {
-    const today = new Date();
-    const due = new Date(dueDate);
-    const diffTime = due.getTime() - today.getTime();
-    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-    return diffDays;
-  };
-  
+
   return (
     <AnimatedCard className="p-6">
       <div className="flex items-center justify-between mb-6">
-        <h2 className="text-lg font-semibold">Upcoming Bills</h2>
+        <h2 className="text-lg font-semibold">Investment Portfolio</h2>
         <button className="text-sm flex items-center text-primary">
           <Plus size={16} className="mr-1" />
-          Add Bill
+          Add Investment
         </button>
       </div>
       
-      <div className="space-y-4">
-        {upcomingBills.map((bill) => {
-          const daysRemaining = getDaysRemaining(bill.dueDate);
-          
-          return (
-            <div 
-              key={bill.id}
-              className="p-4 rounded-lg border border-border hover:border-primary/30 hover:bg-primary/5 transition-colors flex items-center"
-            >
-              <div className="w-10 h-10 rounded-full bg-muted flex items-center justify-center mr-4">
-                {getCategoryIcon(bill.category)}
-              </div>
-              
-              <div className="flex-1">
-                <div className="flex items-center">
-                  <h3 className="font-medium">{bill.name}</h3>
-                  {bill.autopay && (
-                    <span className="ml-2 text-xs bg-blue-50 text-blue-700 px-2 py-0.5 rounded-full">
-                      Autopay
-                    </span>
-                  )}
+      <div className="space-y-6">
+        {Object.keys(investments).map((category) => (
+          <div key={category}>
+            <h3 className="text-md font-medium mb-2 flex items-center">
+              {getCategoryIcon(category)}
+              <span className="ml-2 capitalize">{category.replace('_', ' ')}</span>
+            </h3>
+            <div className="space-y-3">
+              {investments[category].map((item, index) => (
+                <div key={index} className="p-4 rounded-lg border border-border hover:border-primary/30 hover:bg-primary/5 transition-colors flex items-center justify-between">
+                  <div>
+                    {category === 'stocks' && (
+                      <>
+                        <h4 className="font-medium">{item.company} ({item.company_code})</h4>
+                        <p className="text-sm text-muted-foreground">{item.stocks_owned} shares @ ₹{item.purchase_price}</p>
+                      </>
+                    )}
+                    {category === 'mutual_funds' && (
+                      <>
+                        <h4 className="font-medium">{item.fund_name}</h4>
+                        <p className="text-sm text-muted-foreground">Investment: ₹{item.investment_amount.toLocaleString()}</p>
+                      </>
+                    )}
+                    {category === 'real_estate' && (
+                      <>
+                        <h4 className="font-medium">{item.type}</h4>
+                        <p className="text-sm text-muted-foreground">Location: {item.location}</p>
+                      </>
+                    )}
+                    {category === 'gold_bonds' && (
+                      <>
+                        <h4 className="font-medium">{item.issuer} Gold Bonds</h4>
+                        <p className="text-sm text-muted-foreground">{item.grams}g @ ₹{item.purchase_price}</p>
+                      </>
+                    )}
+                  </div>
+                  <StatusBadge status="info" label="Active" />
                 </div>
-                <div className="text-sm text-muted-foreground mt-1">
-                  Due {new Date(bill.dueDate).toLocaleDateString('en-US', {
-                    month: 'short',
-                    day: 'numeric'
-                  })}
-                </div>
-              </div>
-              
-              <div className="flex flex-col items-end">
-                <span className="font-semibold">${bill.amount.toFixed(2)}</span>
-                <div className="mt-1">
-                  <StatusBadge 
-                    status={daysRemaining <= 3 ? 'warning' : 'info'} 
-                    label={daysRemaining <= 0 ? 'Due today' : `${daysRemaining} days left`} 
-                  />
-                </div>
-              </div>
+              ))}
             </div>
-          );
-        })}
+          </div>
+        ))}
       </div>
       
       <button className="mt-6 w-full py-2 border border-dashed border-muted-foreground/30 rounded-lg text-sm text-muted-foreground hover:bg-muted/50 transition-colors">
-        View All Bills
+        View Full Portfolio
       </button>
     </AnimatedCard>
   );
 };
 
-export default BillManagement; 
+export default InvestmentDashboard;

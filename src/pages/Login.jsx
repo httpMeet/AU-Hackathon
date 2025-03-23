@@ -20,9 +20,10 @@ const Login = () => {
           </button>
           
           <div className="space-y-2 text-center mb-8">
-            <div className="mx-auto h-12 w-12 flex items-center justify-center rounded-lg bg-primary overflow-hidden mb-2">
+            <img src={Logo} alt="FinFlow Logo" className="mx-auto h-12 w-12" />
+            {/* <div className="mx-auto h-12 w-12 flex items-center justify-center rounded-lg bg-primary overflow-hidden mb-2">
               <span className="text-white font-semibold text-xl">FF</span>
-            </div>
+            </div> */}
             <h1 className="text-2xl font-bold">Welcome back</h1>
             <p className="text-muted-foreground">Sign in to your FinFlow account</p>
           </div>

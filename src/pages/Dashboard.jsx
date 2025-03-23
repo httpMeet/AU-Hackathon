@@ -45,7 +45,7 @@ const Dashboard = () => {
   const tabs = [
     { id: 'overview', label: 'Overview' },
     { id: 'transactions', label: 'Transactions' },
-    { id: 'bills', label: 'Bills' },
+    { id: 'bills', label: 'Investments' },
     { id: 'tax', label: 'Tax Analysis' },
     { id: 'credit', label: 'Credit Score' },
   ];

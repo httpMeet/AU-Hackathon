@@ -13,10 +13,10 @@ const accounts = [
   // Banking accounts
   {
     id: 1,
-    name: 'Main Checking',
-    institution: 'First Digital Bank',
+    name: 'Business Account',
+    institution: 'HDFC Bank',
     accountNumber: '•••• 4582',
-    balance: 8749.63,
+    balance: 2000000,
     type: 'checking',
     category: 'banking',
     status: 'active',
@@ -92,15 +92,27 @@ const accounts = [
   // Additional bank account
   {
     id: 9,
-    name: 'Joint Account',
-    institution: 'Community Bank',
+    name: 'Current Account',
+    institution: 'Axis Bank',
     accountNumber: '•••• 8642',
-    balance: 15750.89,
+    balance: 750000,
     type: 'joint',
     category: 'banking',
     status: 'active',
     trend: 'up',
     interestRate: '0.75%',
+  },
+  {
+    id: 10,
+    name: 'Fixed Deposit Account',
+    institution: 'SBI Bank',
+    accountNumber: '•••• 8642',
+    balance: 5000000,
+    type: 'FD',
+    category: 'banking',
+    status: 'active',
+    trend: 'up',
+    interestRate: '6.8%',
     coOwner: 'Jane Smith',
   },
 ];
@@ -187,25 +199,25 @@ function AccountOverview({ onAccountClick }) {
         <AnimatedCard className="p-6 flex flex-col" hoverEffect="glow">
           <span className="text-sm text-muted-foreground">Total Balance</span>
           <div className="mt-2 flex items-baseline">
-            <span className="text-3xl font-semibold">${totalBalance.toLocaleString()}</span>
+            <span className="text-3xl font-semibold">₹31,290,000</span>
             <span className="ml-2 text-sm text-green-500 flex items-center">
-              +2.4% <ArrowUpRight size={14} />
+               <ArrowUpRight size={14} />
             </span>
           </div>
           <div className="mt-4 h-1 bg-muted rounded-full overflow-hidden">
             <div className="h-full w-3/4 bg-primary rounded-full"></div>
           </div>
-          <span className="mt-2 text-xs text-muted-foreground">75% of your monthly goal</span>
+          <span className="mt-2 text-xs text-muted-foreground"></span>
         </AnimatedCard>
         
         <AnimatedCard className="p-6" hoverEffect="glow">
           <span className="text-sm text-muted-foreground">Total Investments</span>
           <div className="mt-2">
-            <span className="text-3xl font-semibold">${totalInvestments.toLocaleString()}</span>
+            <span className="text-3xl font-semibold">₹18,940,000</span>
           </div>
           <div className="mt-2">
             <span className="text-xs text-green-500 flex items-center">
-              +8.2% <ArrowUpRight size={14} className="ml-1" />
+              +18.2% <ArrowUpRight size={14} className="ml-1" />
             </span>
             <span className="text-xs text-muted-foreground mt-1">Year-to-date return</span>
           </div>
@@ -214,16 +226,22 @@ function AccountOverview({ onAccountClick }) {
         <AnimatedCard className="p-6" hoverEffect="glow">
           <span className="text-sm text-muted-foreground">Net Worth</span>
           <div className="mt-2">
-            <span className="text-3xl font-semibold">${netWorth.toLocaleString()}</span>
+            <span className="text-3xl font-semibold">₹31,290,000</span>
           </div>
-          <div className="mt-4 flex justify-between items-center">
-            <div className="flex items-center text-sm">
-              <span className="w-2 h-2 rounded-full bg-green-500 mr-2"></span>
-              <span className="text-muted-foreground text-xs">Assets</span>
+          <div className="mt-4 grid grid-cols-2 gap-4">
+            <div className="flex flex-col items-start">
+              <div className="flex items-center text-sm">
+                <span className="w-2 h-2 rounded-full bg-green-500 mr-2"></span>
+                <span className="text-muted-foreground text-xs">Assets</span>
+              </div>
+              <span className="ml-2 text-green-500 font-semibold">₹40,490,000</span>
             </div>
-            <div className="flex items-center text-sm">
-              <span className="w-2 h-2 rounded-full bg-red-500 mr-2"></span>
-              <span className="text-muted-foreground text-xs">Liabilities</span>
+            <div className="flex flex-col items-start">
+              <div className="flex items-center text-sm">
+                <span className="w-2 h-2 rounded-full bg-red-500 mr-2"></span>
+                <span className="text-muted-foreground text-xs">Liabilities</span>
+              </div>
+              <span className="ml-2 text-red-500 font-semibold">₹9,200,000</span>
             </div>
           </div>
         </AnimatedCard>
@@ -302,7 +320,7 @@ function AccountOverview({ onAccountClick }) {
                 <div className="flex items-center space-x-4">
                   <div className="flex flex-col items-end">
                     <div className="font-semibold">
-                      {account.type === 'credit' ? '-' : ''}${account.balance?.toLocaleString()}
+                      {account.type === 'credit' ? '-' : ''}₹{account.balance?.toLocaleString()}
                     </div>
                     <div className="flex items-center mt-1">
                       {account.interestRate && (
@@ -350,7 +368,7 @@ function AccountOverview({ onAccountClick }) {
               {account.type === 'pps' && (
                 <div className="mt-2 pl-14 text-xs text-muted-foreground">
                   <div className="flex space-x-4">
-                    <span>Yearly Contribution: ${account.yearlyContribution?.toLocaleString()}</span>
+                    <span>Yearly Contribution: ₹{account.yearlyContribution?.toLocaleString()}</span>
                     <span>Matures: {new Date(account.maturityDate).toLocaleDateString()}</span>
                   </div>
                 </div>
@@ -376,17 +394,12 @@ function AccountOverview({ onAccountClick }) {
               {account.type === 'credit' && (
                 <div className="mt-2 pl-14 text-xs text-muted-foreground">
                   <div className="flex space-x-4">
-                    <span>Credit Limit: ${account.creditLimit?.toLocaleString()}</span>
+                    <span>Credit Limit: ₹{account.creditLimit?.toLocaleString()}</span>
                     <span>Due Date: {new Date(account.dueDate).toLocaleDateString()}</span>
                   </div>
                 </div>
               )}
               
-              {account.type === 'joint' && (
-                <div className="mt-2 pl-14 text-xs text-muted-foreground">
-                  <span>Co-owner: {account.coOwner}</span>
-                </div>
-              )}
               
               {/* Portfolio Form and Advice Display */}
               {account.type === 'stocks' && selectedAccountId === account.id && (
