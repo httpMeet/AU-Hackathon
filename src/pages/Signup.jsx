@@ -19,9 +19,11 @@ const Signup = () => {
           </button>
           
           <div className="space-y-2 text-center mb-8">
-            <div className="mx-auto h-12 w-12 flex items-center justify-center rounded-lg bg-primary overflow-hidden mb-2">
-              <span className="text-white font-semibold text-xl">FF</span>
-            </div>
+            <img 
+              src="../src/assets/logo.png" 
+              alt="FinFlow Logo" 
+              className="mx-auto h-12 w-12 object-contain mb-2" 
+            />
             <h1 className="text-2xl font-bold">Create an account</h1>
             <p className="text-muted-foreground">Sign up to get started with FinFlow</p>
           </div>
