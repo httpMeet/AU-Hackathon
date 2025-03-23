@@ -143,9 +143,9 @@ const Dashboard = () => {
           {activeTab === 'credit' && <CreditScore />}
         </div>
 
-        <div className="fixed bottom-4 right-4">
+        {/* <div className="fixed bottom-4 right-4">
           <AIChatbot />
-        </div>
+        </div> */}
       </main>
     </div>
   );
